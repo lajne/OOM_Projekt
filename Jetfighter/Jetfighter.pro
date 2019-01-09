@@ -24,8 +24,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
-        main.cpp
+        main.cpp \
+    rect.cpp \
+    bullet.cpp
 
-HEADERS +=
+HEADERS += \
+    rect.h \
+    bullet.h
 
 FORMS +=
