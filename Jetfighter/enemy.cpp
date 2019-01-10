@@ -1,5 +1,6 @@
 #include "game.h"
 #include "enemy.h"
+#include "game.h"
 #include <QTimer>
 #include <QGraphicsScene>
 #include <QList>
@@ -30,6 +31,7 @@ void Enemy::move() {
 
     if(pos().y() + rect().height() > 600) {
         //decrease health
+        game->health->decrease();
 
         scene()->removeItem(this);
         delete this;

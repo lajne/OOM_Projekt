@@ -5,7 +5,8 @@
 #include <QWidget>
 #include <QGraphicsScene>
 #include "player.h"
-//TODO: include healt score
+#include "score.h"
+#include "health.h"
 
 class Game: public QGraphicsView {
 public:
@@ -13,7 +14,8 @@ public:
 
     QGraphicsScene * scene;
     Player * player;
-    //score health
+    Score * score;
+    Health * health;
 };
 
 #endif // GAME_H
