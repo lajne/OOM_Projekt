@@ -4,9 +4,12 @@
 #include <QGraphicsScene>
 #include <QKeyEvent>
 
-Player::Player(QGraphicsItem *parent):QGraphicsRectItem(parent){
+Player::Player(QGraphicsItem *parent):QGraphicsPixmapItem(parent){
+    //Set graphics
+    setPixmap(QPixmap(":/images/player_plane.png"));
     //Initiate sound
     sound->soundInitiate();
+    sound->soundPropeller();
 }
 
 void Player::keyPressEvent(QKeyEvent *event) {
@@ -15,7 +18,7 @@ void Player::keyPressEvent(QKeyEvent *event) {
             setPos(x() - 10, y());
         }
     } else if(event->key() == Qt::Key_Right) {
-        if(pos().x() + rect().width() < 800) {
+        if(pos().x() < 800) {
             setPos(x() + 10, y());
         }
     } else if(event->key() == Qt::Key_Space) {

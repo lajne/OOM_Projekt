@@ -18,7 +18,6 @@ Game::Game(QWidget *parent){
 
     // Create the player
     player = new Player();
-    player->setRect(0, 0, 100, 100);
     player->setPos(400, 500);
 
     //Make the player focusable and set it to be the current focus

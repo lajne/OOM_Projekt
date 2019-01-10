@@ -10,8 +10,10 @@ class Sound: public QSoundEffect {
     Sound();
     void soundInitiate();
     void soundShoot();
+    void soundPropeller();
 private:
     QSoundEffect shootSound;
+    QSoundEffect propellerSound;
 };
 
 #endif // SOUND_H
