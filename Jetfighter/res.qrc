@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/sounds">
+        <file>prop-plane.wav</file>
+        <file>bullet.wav</file>
+    </qresource>
+</RCC>

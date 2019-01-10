@@ -5,7 +5,8 @@
 #include <QKeyEvent>
 
 Player::Player(QGraphicsItem *parent):QGraphicsRectItem(parent){
-
+    //Initiate sound
+    sound->soundInitiate();
 }
 
 void Player::keyPressEvent(QKeyEvent *event) {
@@ -22,6 +23,8 @@ void Player::keyPressEvent(QKeyEvent *event) {
         Bullet * bullet = new Bullet();
         bullet->setPos(x(), y());
         scene()->addItem(bullet);
+
+        sound->soundShoot();
     }
 }
 
