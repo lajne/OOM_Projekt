@@ -7,6 +7,7 @@
 #include "player.h"
 #include "score.h"
 #include "health.h"
+#include "powerup.h"
 
 class Game: public QGraphicsView {
 public:
@@ -16,6 +17,7 @@ public:
     Player * player;
     Score * score;
     Health * health;
+    PowerUp *powerUp;
 };
 
 #endif // GAME_H

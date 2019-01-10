@@ -41,5 +41,11 @@ Game::Game(QWidget *parent){
     QObject::connect(timer, SIGNAL(timeout()), player, SLOT(spawn()));
     timer->start(2000);
 
+    //PowerUp
+
+    //QTimer *timer2 = new QTimer();
+    //QObject::connect(timer2, SIGNAL(timeout()), powerUp, SLOT(spawn()));
+    //timer2->start(10000);
+
     show();
 }
