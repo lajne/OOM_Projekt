@@ -9,13 +9,13 @@
 
 extern Game * game;
 
-Enemy::Enemy(QGraphicsItem *parent): QObject (), QGraphicsRectItem (parent) {
+Enemy::Enemy(QGraphicsItem *parent): QObject (), QGraphicsPixmapItem(parent) {
     //Set random x pos
     int random_number = rand() % 700;
     setPos(random_number, 0);
 
     //Drew rect
-    setRect(0, 0, 100, 100);
+    setPixmap(QPixmap(":/images/enemy_plane.png"));
 
     //make/connect a timer to move() the enemy every so often
     QTimer * timer = new QTimer();
@@ -29,7 +29,7 @@ void Enemy::move() {
     //Move enemy down
     setPos(x(), y() + 5);
 
-    if(pos().y() + rect().height() > 600) {
+    if(pos().y() > 600) {
         //decrease health
         game->health->decrease();
 

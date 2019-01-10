@@ -9,6 +9,8 @@ Game::Game(QWidget *parent){
     scene = new QGraphicsScene();
     scene->setSceneRect(0, 0, 800, 600);
 
+    setBackgroundBrush(QBrush(QImage(":/images/ground.png")));
+
     //make the newly created scene the scene to visualize (since Game is a QGraphicsView Widget,
     // it can be used to visualize scenes
     setScene(scene);

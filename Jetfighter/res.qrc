@@ -7,5 +7,7 @@
     <qresource prefix="/images">
         <file>bullet4.png</file>
         <file>player_plane.png</file>
+        <file>enemy_plane.png</file>
+        <file>ground.png</file>
     </qresource>
 </RCC>
