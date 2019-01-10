@@ -23,6 +23,34 @@ Enemy::Enemy(QGraphicsItem *parent): QObject (), QGraphicsPixmapItem(parent) {
 
     // Every 50 ms the bullet will move
     timer->start(50);
+
+    sound->soundInitiate();
+}
+
+// check if collision with bullet
+bool Enemy::isBulletCollision() {
+    //If bullet collide with enemy, destroy both
+//    QList<QGraphicsItem *> colliding_items = collidingItems();
+
+//    for(int i = 0, n = colliding_items.size(); i < n; ++i) {
+//        if(typeid (*(colliding_items[i])) == typeid (Bullet)) {
+//            //Increase score
+//            game->score->increase();
+//            sound->soundBulletHit();
+
+//            //Remove them both
+//            scene()->removeItem(colliding_items[i]);
+//            scene()->removeItem(this);
+
+//            //Delete them both
+//            delete colliding_items[i];
+//            delete this;
+
+//            qDebug() << "Enemy deleted by collision";
+            return true;
+//        }
+//    }
+//    return false;
 }
 
 void Enemy::move() {

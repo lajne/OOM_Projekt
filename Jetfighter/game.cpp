@@ -2,9 +2,12 @@
 #include "enemy.h"
 #include <QTimer>
 #include <QGraphicsTextItem>
-#include <QFont>
+#include <QDebug>
 
 Game::Game(QWidget *parent){
+
+    spawnTimer = 0;
+
     // Create the scene
     scene = new QGraphicsScene();
     scene->setSceneRect(0, 0, 800, 600);
@@ -36,10 +39,46 @@ Game::Game(QWidget *parent){
     health->setPos(health->x(), health->y() + 25);
     scene->addItem(health);
 
+//    //spawn enemies
+//    QTimer * timer = new QTimer();
+//    //Create enemy
+//    QObject::connect(timer, SIGNAL(timeout()), this, SLOT(spawnEnemy()));
+//    timer->start(2000);
+
     //spawn enemies
-    QTimer * timer = new QTimer();
-    QObject::connect(timer, SIGNAL(timeout()), player, SLOT(spawn()));
-    timer->start(2000);
+    QTimer * gameTimer = new QTimer();
+    //Create enemy
+    QObject::connect(gameTimer, SIGNAL(timeout()), this, SLOT(gameUpdate()));
+    gameTimer->start(50);
 
     show();
 }
+
+void Game::gameOver() {
+
+}
+
+void Game::gameUpdate() {
+    if(spawnTimer == 40) {
+        spawnEnemy();
+        spawnTimer = 0;
+    }
+
+    if(enemy->isBulletCollision()) {
+////        qDebug() << "isbulletcollision!";
+    }
+    if(player->isEnemyCollision()) {
+        qDebug() << "isenemycollision!";
+    }
+//    else {
+////        qDebug() << "KINA ATTACKAREREREREER";
+//    }
+
+    spawnTimer++;
+}
+
+void Game::spawnEnemy(){
+    //Create enemy
+    Enemy * enemy = new Enemy();
+    scene->addItem(enemy);
+};

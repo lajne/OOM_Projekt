@@ -9,7 +9,6 @@ Player::Player(QGraphicsItem *parent):QGraphicsPixmapItem(parent){
     setPixmap(QPixmap(":/images/player_plane.png"));
     //Initiate sound
     sound->soundInitiate();
-    sound->soundPropeller();
 }
 
 void Player::keyPressEvent(QKeyEvent *event) {
@@ -31,8 +30,20 @@ void Player::keyPressEvent(QKeyEvent *event) {
     }
 }
 
-void Player::spawn() {
-    //Create enemy
-    Enemy * enemy = new Enemy();
-    scene()->addItem(enemy);
+bool Player::isEnemyCollision() {
+    //If bullet collide with enemy, destroy both
+    QList<QGraphicsItem *> colliding_items = collidingItems();
+
+    for(int i = 0, n = colliding_items.size(); i < n; ++i) {
+        if(typeid (*(colliding_items[i])) == typeid (Enemy)) {
+            return true;
+        }
+    }
+    return false;
 }
+
+//void Player::spawn() {
+//    //Create enemy
+//    Enemy * enemy = new Enemy();
+//    scene()->addItem(enemy);
+//}

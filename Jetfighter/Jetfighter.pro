@@ -32,7 +32,8 @@ SOURCES += \
     player.cpp \
     score.cpp \
     health.cpp \
-    sound.cpp
+    sound.cpp \
+    plane.cpp
 
 HEADERS += \
     bullet.h \
@@ -41,7 +42,8 @@ HEADERS += \
     player.h \
     score.h \
     health.h \
-    sound.h
+    sound.h \
+    plane.h
 
 FORMS +=
 

@@ -7,7 +7,8 @@ Sound::Sound() {
 
 void Sound::soundInitiate() {
     shootSound.setSource(QUrl::fromLocalFile(":/sounds/gunfire.wav"));
-    propellerSound.setSource(QUrl::fromLocalFile(":/sounds/prop.wav"));
+    explosionSound.setSource(QUrl::fromLocalFile(":/sounds/explosion2.wav"));
+    bulletHitSound.setSource(QUrl::fromLocalFile(":/sounds/gunfire.wav"));
 }
 
 void Sound::soundShoot() {
@@ -17,9 +18,13 @@ void Sound::soundShoot() {
     shootSound.play();
 }
 
-//Background sound isn't working, maybe don't need it?
-void Sound::soundPropeller() {
-    propellerSound.play();
+void Sound::soundExplosion() {
+    explosionSound.play();
+}
+
+void Sound::soundBulletHit() {
+    qDebug() << "Hit";
+    bulletHitSound.play();
 }
 
 

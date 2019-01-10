@@ -3,6 +3,9 @@
         <file>prop-plane.wav</file>
         <file>bullet.wav</file>
         <file>gunfire.wav</file>
+        <file>bulletping.mp3</file>
+        <file>explosion.mp3</file>
+        <file>explosion2.wav</file>
     </qresource>
     <qresource prefix="/images">
         <file>bullet4.png</file>
