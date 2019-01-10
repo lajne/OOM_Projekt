@@ -24,7 +24,7 @@ void Player::keyPressEvent(QKeyEvent *event) {
     } else if(event->key() == Qt::Key_Space) {
         //create bullet
         Bullet * bullet = new Bullet();
-        bullet->setPos(x(), y());
+        bullet->setPos(x() + 40, y());
         scene()->addItem(bullet);
 
         sound->soundShoot();
