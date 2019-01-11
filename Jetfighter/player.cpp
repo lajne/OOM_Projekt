@@ -3,6 +3,8 @@
 #include "enemy.h"
 #include <QGraphicsScene>
 #include <QKeyEvent>
+#include <QString>
+#include <QDebug>
 
 Player::Player(QGraphicsItem *parent):QGraphicsPixmapItem(parent){
     //Set graphics
@@ -34,7 +36,7 @@ void Player::keyPressEvent(QKeyEvent *event) {
 bool Player::isEnemyCollision() {
     //If bullet collide with enemy, destroy both
     QList<QGraphicsItem *> colliding_enemies = collidingItems();
-
+    //qDebug() << "colliding_enemies: " << colliding_enemies;
     for(int i = 0, n = colliding_enemies.size(); i < n; ++i) {
         if(typeid (*(colliding_enemies[i])) == typeid (Enemy)) {
             return true;

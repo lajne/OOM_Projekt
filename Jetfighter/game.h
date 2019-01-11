@@ -26,6 +26,8 @@ public:
     Health * health;
 
 private:
+    std::vector<Enemy*> activeEnemies;
+    Sound *sound = new Sound;
     int spawnTimer;
 
 public slots:

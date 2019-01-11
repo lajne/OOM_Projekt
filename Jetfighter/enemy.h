@@ -13,7 +13,7 @@ class Enemy: public QObject, public QGraphicsPixmapItem {
 public:
     Enemy(QGraphicsItem * parent = 0);
     Sound *sound = new Sound;
-    bool isBulletCollision();
+    bool isBulletCollision(Enemy * enemy);
 
 public slots:
     void move();

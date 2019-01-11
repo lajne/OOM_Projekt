@@ -1,10 +1,12 @@
 #include "game.h"
 #include "enemy.h"
 #include "game.h"
+#include "bullet.h"
 #include <QTimer>
 #include <QGraphicsScene>
 #include <QList>
 #include <QDebug>
+#include <QString>
 #include <stdlib.h> //rand() -> really large int
 
 extern Game * game;
@@ -28,23 +30,16 @@ Enemy::Enemy(QGraphicsItem *parent): QObject (), QGraphicsPixmapItem(parent) {
 }
 
 // check if collision with bullet
-bool Enemy::isBulletCollision() {
-    //If bullet collide with enemy, destroy both
-//    QList<QGraphicsItem *> scene_items = scene()->items();
-//    for(int i = 0, n = scene_items.size(); i < n; ++i) {
-//        if(typeid (*(scene_items[i])) == typeid (this)){
-            qDebug() << "1";
-            QList<QGraphicsItem *> colliding_bullets = collidingItems();
-            for(int i = 0, n = colliding_bullets.size(); i < n; ++i) {
-                if(typeid (*(colliding_bullets[i])) == typeid (Bullet)) {
-                    return true;
-                }
-            }
-//        }
-//    }
-//    return false;
+bool Enemy::isBulletCollision(Enemy *enemy) {
 
-    //qDebug() << "scene()->items()";
+    //If bullet collide with enemy, destroy both
+    QList<QGraphicsItem *> colliding_bullets = enemy->collidingItems();
+        qDebug() << "2" << colliding_bullets;
+        for(int i = 0, n = colliding_bullets.size(); i < n; ++i) {
+            if(typeid (*(colliding_bullets[i])) == typeid (Bullet)) {
+                return true;
+            }
+        }
     return false;
 
 
@@ -73,13 +68,13 @@ void Enemy::move() {
     //Move enemy down
     setPos(x(), y() + 5);
 
-    if(pos().y() > 600) {
-        //decrease health
-        game->health->decrease();
+//    if(pos().y() > 600) {
+//        //decrease health
+//        game->health->decrease();
 
-        scene()->removeItem(this);
-        delete this;
+//        scene()->removeItem(this);
+//        delete this;
 
-        qDebug() << "Enemy deleted by end of scene";
-    }
+//        qDebug() << "Enemy deleted by end of scene";
+//    }
 };
