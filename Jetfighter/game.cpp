@@ -24,6 +24,7 @@ Game::Game(QWidget *parent){
     // Create the player
     player = new Player();
     player->setPos(400, 500);
+    qDebug() << "player in scene";
 
     //Make the player focusable and set it to be the current focus
     player->setFlag(QGraphicsItem::ItemIsFocusable);
@@ -63,9 +64,14 @@ void Game::gameUpdate() {
         spawnEnemy();
         spawnTimer = 0;
     }
-
-    if(enemy->isBulletCollision()) {
-////        qDebug() << "isbulletcollision!";
+    QList<QGraphicsItem *> scene_items = scene->items();
+    for(int i = 0, n = scene_items.size(); i < n; ++i) {
+        if(typeid (*(scene_items[i])) == typeid (Enemy)){
+            qDebug() << "Scene contains enemy!!";
+            if(enemy->isBulletCollision()) {
+                qDebug() << "isbulletcollision!";
+            }
+        }
     }
     if(player->isEnemyCollision()) {
         qDebug() << "isenemycollision!";

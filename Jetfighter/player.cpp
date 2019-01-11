@@ -30,12 +30,13 @@ void Player::keyPressEvent(QKeyEvent *event) {
     }
 }
 
+//Take action straight away.
 bool Player::isEnemyCollision() {
     //If bullet collide with enemy, destroy both
-    QList<QGraphicsItem *> colliding_items = collidingItems();
+    QList<QGraphicsItem *> colliding_enemies = collidingItems();
 
-    for(int i = 0, n = colliding_items.size(); i < n; ++i) {
-        if(typeid (*(colliding_items[i])) == typeid (Enemy)) {
+    for(int i = 0, n = colliding_enemies.size(); i < n; ++i) {
+        if(typeid (*(colliding_enemies[i])) == typeid (Enemy)) {
             return true;
         }
     }
