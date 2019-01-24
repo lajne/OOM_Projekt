@@ -70,7 +70,7 @@ bool Player::isShooting() {
 //    scene()->addItem(enemy);
 //}
 //Will remove later
-void Player::spawn2() {
-    PowerUp *powerUp = new PowerUp();
-    scene()->addItem(powerUp);
-}
+//void Player::spawn2() {
+//    PowerUp *powerUp = new PowerUp();
+//    scene()->addItem(powerUp);
+//}

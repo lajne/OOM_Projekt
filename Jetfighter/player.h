@@ -18,12 +18,14 @@ public:
 
 private:
     bool shootPress = false;
+    QList<QGraphicsItem> returnCollidingItemsList();
+    QList<QGraphicsItem *> collidingList = collidingItems();
 //public slots:
 //    void spawn();
 public slots:
 
     //Will remove later
-    void spawn2();
+    //void spawn2();
 };
 
 #endif // PLAYER_H
