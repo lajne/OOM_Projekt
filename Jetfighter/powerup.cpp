@@ -14,14 +14,14 @@ PowerUp::PowerUp(QGraphicsItem *parent) : QObject(), QGraphicsPixmapItem(parent)
     this->setPixmap(QPixmap(":/images/coin.png"));
 
     //Call move so it moves every 50 ms
-    QTimer * timer = new QTimer();
+
     connect(timer, SIGNAL(timeout()), this, SLOT(move()));
     timer->start(50);
 }
 
 void PowerUp::move()
 {
-    setPos(x(), y() + 5);
+    setPos(x(), y() + 7);
 }
 
 
@@ -39,4 +39,9 @@ bool PowerUp::isOutOfScreen(int screenHeight)
         return true;
     }
     return false;
+}
+
+void PowerUp::stop()
+{
+    timer->stop();
 }

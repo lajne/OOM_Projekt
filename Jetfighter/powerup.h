@@ -22,13 +22,14 @@ public:
     //QList<QGraphicsItem *> list = collidingItems() ;
 
     bool isOutOfScreen(int screenHeight);
+    void stop();
 public slots:
     void move();
 
     void spawn();
 
-    //bool collidesWithItem(const QGraphicsItem *other, Qt::ItemSelectionMode mode = Qt::IntersectsItemShape);
-    //bool collidesWithPlayer(const Player  *other, Qt::ItemSelectionMode mode = Qt::IntersectsItemShape) : QGraphicsItem::collidesWithItem(*other, Qt::IntersectsItemShape) {}
+private:
+    QTimer * timer = new QTimer();
 };
 
 #endif // POWERUP_H
