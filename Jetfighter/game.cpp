@@ -111,6 +111,7 @@ void Game::gameUpdate() {
     //TESTIS
     for(int i=0; i<activePowerUps.size(); i++) {
         if(isPowerUpPickedUp(activePowerUps[i])) {
+            sound->soundCoin();
             scene->removeItem(activePowerUps[i]);
             score->increase();
             delete activePowerUps[i];

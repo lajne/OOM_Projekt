@@ -9,6 +9,7 @@ void Sound::soundInitiate() {
     shootSound.setSource(QUrl::fromLocalFile(":/sounds/gunfire.wav"));
     explosionSound.setSource(QUrl::fromLocalFile(":/sounds/explosion2.wav"));
     bulletHitSound.setSource(QUrl::fromLocalFile(":/sounds/gunfire.wav"));
+    coinHitSound.setSource(QUrl::fromLocalFile(":/sounds/coin.wav"));
 }
 
 void Sound::soundShoot() {
@@ -23,8 +24,11 @@ void Sound::soundExplosion() {
 }
 
 void Sound::soundBulletHit() {
-    qDebug() << "Hit";
     bulletHitSound.play();
+}
+
+void Sound::soundCoin() {
+    coinHitSound.play();
 }
 
 

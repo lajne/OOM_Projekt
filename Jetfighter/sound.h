@@ -12,10 +12,12 @@ class Sound: public QSoundEffect {
     void soundShoot();
     void soundExplosion();
     void soundBulletHit();
+    void soundCoin();
 private:
     QSoundEffect shootSound;
     QSoundEffect explosionSound;
     QSoundEffect bulletHitSound;
+    QSoundEffect coinHitSound;
 };
 
 #endif // SOUND_H

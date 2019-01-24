@@ -6,6 +6,7 @@
         <file>bulletping.mp3</file>
         <file>explosion.mp3</file>
         <file>explosion2.wav</file>
+        <file>coin.wav</file>
     </qresource>
     <qresource prefix="/images">
         <file>bullet4.png</file>
