@@ -41,5 +41,31 @@ Game::Game(QWidget *parent){
     QObject::connect(timer, SIGNAL(timeout()), player, SLOT(spawn()));
     timer->start(2000);
 
+    //PowerUp
+    //powerUp = new PowerUp();
+
+    //scene->addItem(powerUp);
+    QTimer *timer2 = new QTimer();
+    QObject::connect(timer2, SIGNAL(timeout()), player, SLOT(spawn2()));
+    timer2->start(1000);
+
+    if(!player->isVisible()) {
+        this->close();
+    }
+
     show();
 }
+
+//void Game::keyPressEvent(QKeyEvent *event)
+//{
+//    if (event->key() == Qt::Key_X) {
+//        this->close();
+//    }
+//}
+
+////Pause all timers
+//bool Game::gameOver()
+//{
+//    return true;
+//}
+
