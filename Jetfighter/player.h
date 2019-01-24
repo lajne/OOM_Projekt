@@ -15,9 +15,12 @@ public:
     Sound *sound = new Sound;  // TODO: Move sound to game class
     bool isEnemyCollision();
     bool isShooting();
+    void movement();
 
 private:
     bool shootPress = false;
+    bool leftPress = false;
+    bool rightPress = false;
     QList<QGraphicsItem> returnCollidingItemsList();
     QList<QGraphicsItem *> collidingList = collidingItems();
 //public slots:
