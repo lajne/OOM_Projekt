@@ -11,9 +11,13 @@ class Player: public QObject, public QGraphicsPixmapItem{
 public:
     Player(QGraphicsItem * parent = 0);
     void keyPressEvent (QKeyEvent * event);
+    void keyReleaseEvent(QKeyEvent *event);
     Sound *sound = new Sound;  // TODO: Move sound to game class
     bool isEnemyCollision();
+    bool isShooting();
 
+private:
+    bool shootPress = false;
     QList<QGraphicsItem> returnCollidingItemsList();
     QList<QGraphicsItem *> collidingList = collidingItems();
 //public slots:

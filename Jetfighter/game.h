@@ -8,6 +8,7 @@
 #include <QObject>
 #include "player.h"
 #include "enemy.h"
+#include "bullet.h"
 #include "score.h"
 #include "health.h"
 #include "powerup.h"
@@ -18,10 +19,12 @@ class Game: public QGraphicsView {
 public:
     Game(QWidget * parent = 0);
     void spawnEnemy();
-    //Test
-    //void keyPressEvent (QKeyEvent * event);
-
-    //bool gameOver();
+    void spawnBullet();
+    bool isEnemyCollidingWithBullet(Enemy * enemy);
+    bool isEnemyCollidingWithPlayer(Enemy *enemy);
+    bool isBulletCollidingWithEnemy(Bullet *bullet);
+    void shootEvent();
+    bool gameOver();
 
 //private:
     QGraphicsScene * scene;
@@ -30,23 +33,21 @@ public:
     Score * score;
     Health * health;
     PowerUp *powerUp;
-
+    Bullet * bullet;
     bool isPlayerCollidingWithPowerUp(Player *player);
-
     bool isPowerUpPickedUp(PowerUp *pu);
 private:
     std::vector<Enemy*> activeEnemies;
+    std::vector<Bullet*> activeBullets;
     std::vector<PowerUp*> activePowerUps;
     Sound *sound = new Sound;
-    int spawnTimer;
+    int spawnTimer, shootCooldown;
 
 
 public slots:
     void gameUpdate();
 //    void spawnEnemy();
     void spawnPowerUp();
-
-
 };
 
 #endif // GAME_H

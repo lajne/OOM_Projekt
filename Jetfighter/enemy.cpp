@@ -30,41 +30,21 @@ Enemy::Enemy(QGraphicsItem *parent): QObject (), QGraphicsPixmapItem(parent) {
 }
 
 // check if collision with bullet
-bool Enemy::isBulletCollision(Enemy *enemy) {
+//bool Enemy::isBulletCollision(Enemy *enemy) {
 
-    //If bullet collide with enemy, destroy both
-    QList<QGraphicsItem *> colliding_bullets = enemy->collidingItems();
-        qDebug() << "2" << colliding_bullets;
-        for(int i = 0, n = colliding_bullets.size(); i < n; ++i) {
-            if(typeid (*(colliding_bullets[i])) == typeid (Bullet)) {
-                return true;
-            }
-        }
-    return false;
-
-
-
-
-//            //Increase score
-//            game->score->increase();
-//            sound->soundBulletHit();
-
-//            //Remove them both
-//            scene()->removeItem(colliding_items[i]);
-//            scene()->removeItem(this);
-
-//            //Delete them both
-//            delete colliding_items[i];
-//            delete this;
-
-//            qDebug() << "Enemy deleted by collision";
-//            return true;
+//    //If bullet collide with enemy, destroy both
+//    QList<QGraphicsItem *> colliding_bullets = enemy->collidingItems();
+//        //qDebug() << "2" << colliding_bullets;
+//        for(int i = 0, n = colliding_bullets.size(); i < n; ++i) {
+//            if(typeid (*(colliding_bullets[i])) == typeid (Bullet)) {
+//                return true;
+//            }
 //        }
-//    }
 //    return false;
-}
+//}
 
 void Enemy::move() {
+//    qDebug() << "move enemy";
     //Move enemy down
     setPos(x(), y() + 5);
 

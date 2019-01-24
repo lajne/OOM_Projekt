@@ -25,14 +25,21 @@ void Player::keyPressEvent(QKeyEvent *event) {
             setPos(x() + 10, y());
         }
     } else if(event->key() == Qt::Key_Space) {
+        shootPress = true;
         //create bullet
-        Bullet * bullet = new Bullet();
-        bullet->setPos(x() + 40, y());
-        scene()->addItem(bullet);
+//        Bullet * bullet = new Bullet();
+//        bullet->setPos(x() + 40, y());
+//        scene()->addItem(bullet);
 
-        sound->soundShoot();
-    } else if(event->key() == Qt::Key_X) {
+        //sound->soundShoot();
+    } /*else if(event->key() == Qt::Key_X) {
         this->hide();
+    }*/
+}
+
+void Player::keyReleaseEvent(QKeyEvent *event) {
+    if(event->key() == Qt::Key_Space) {
+        shootPress = false;
     }
 }
 
@@ -49,6 +56,13 @@ bool Player::isEnemyCollision() {
     return false;
 }
 
+bool Player::isShooting() {
+    if(shootPress) {
+        return true;
+    } else {
+        return false;
+    }
+}
 
 //void Player::spawn() {
 //    //Create enemy
