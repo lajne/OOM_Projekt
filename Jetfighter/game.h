@@ -29,16 +29,24 @@ public:
     Enemy * enemy;
     Score * score;
     Health * health;
+    PowerUp *powerUp;
 
+    bool isPlayerCollidingWithPowerUp(Player *player);
+
+    bool isPowerUpPickedUp(PowerUp *pu);
 private:
     std::vector<Enemy*> activeEnemies;
+    std::vector<PowerUp*> activePowerUps;
     Sound *sound = new Sound;
     int spawnTimer;
+
 
 public slots:
     void gameUpdate();
 //    void spawnEnemy();
-    PowerUp *powerUp;
+    void spawnPowerUp();
+
+
 };
 
 #endif // GAME_H

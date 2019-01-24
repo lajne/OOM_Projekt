@@ -59,8 +59,9 @@ Game::Game(QWidget *parent){
 
     //scene->addItem(powerUp);
     QTimer *timer2 = new QTimer();
-    QObject::connect(timer2, SIGNAL(timeout()), player, SLOT(spawn2()));
+    QObject::connect(timer2, SIGNAL(timeout()), this, SLOT(spawnPowerUp()));
     timer2->start(1000);
+
 
     if(!player->isVisible()) {
         this->close();
@@ -69,9 +70,9 @@ Game::Game(QWidget *parent){
     show();
 }
 
-void Game::gameOver() {
+//void Game::gameOver() {
 
-}
+//}
 
 void Game::gameUpdate() {
     if(spawnTimer == 40) {
@@ -119,6 +120,21 @@ void Game::gameUpdate() {
 //    }
 
     spawnTimer++;
+
+    //TESTIS
+    for(int i=0; i<activePowerUps.size(); i++) {
+        if(isPowerUpPickedUp(activePowerUps[i])) {
+            scene->removeItem(activePowerUps[i]);
+            score->increase();
+            delete activePowerUps[i];
+            activePowerUps.erase(activePowerUps.begin()+i);
+        }
+        if(activePowerUps[i]->isOutOfScreen(600)) {
+            scene->removeItem(activePowerUps[i]);
+            delete activePowerUps[i];
+            activePowerUps.erase(activePowerUps.begin()+i);
+        }
+    }
 }
 
 void Game::spawnEnemy(){
@@ -127,7 +143,40 @@ void Game::spawnEnemy(){
 //    scene->addItem(enemy);
     activeEnemies.push_back(new Enemy());
     scene->addItem(activeEnemies.back());
-};
+}
+
+void Game::spawnPowerUp() {
+
+    activePowerUps.push_back(new PowerUp());
+    scene->addItem(activePowerUps.back());
+}
+
+bool Game::isPlayerCollidingWithPowerUp(Player *player) {
+    qDebug()<<"im in";
+    QList<QGraphicsItem *> collidingList = player->collidingItems();
+    if(collidingList.size() > 0) {
+        for(int i=0; i<collidingList.size(); i++) {
+            if(typeid (*(collidingList[i])) == typeid (PowerUp)) {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+bool Game::isPowerUpPickedUp(PowerUp *pu) {
+    QList<QGraphicsItem *> collidingList = pu->collidingItems();
+    for(int i=0; i<collidingList.size(); i++) {
+        if(typeid (*(collidingList[i])) == typeid (Player)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+
 //void Game::keyPressEvent(QKeyEvent *event)
 //{
 //    if (event->key() == Qt::Key_X) {
