@@ -8,6 +8,7 @@
 #include <QObject>
 #include "player.h"
 #include "enemy.h"
+#include "bullet.h"
 #include "score.h"
 #include "health.h"
 #include "powerup.h"
@@ -19,9 +20,10 @@ public:
     Game(QWidget * parent = 0);
     void spawnEnemy();
     void spawnBullet();
-    //Test
-    void keyPressEvent (QKeyEvent * event);
-
+    bool isEnemyCollidingWithBullet(Enemy * enemy);
+    bool isEnemyCollidingWithPlayer(Enemy *enemy);
+    bool isBulletCollidingWithEnemy(Bullet *bullet);
+    void shootEvent();
     bool gameOver();
 
 //private:
@@ -37,7 +39,7 @@ private:
     std::vector<Enemy*> activeEnemies;
     std::vector<Bullet*> activeBullets;
     Sound *sound = new Sound;
-    int spawnTimer;
+    int spawnTimer, shootCooldown;
 
 public slots:
     void gameUpdate();

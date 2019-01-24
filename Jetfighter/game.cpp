@@ -1,5 +1,4 @@
 #include "game.h"
-#include "enemy.h"
 #include "sound.h"
 #include <QTimer>
 #include <QGraphicsTextItem>
@@ -8,6 +7,7 @@
 Game::Game(QWidget *parent){
 
     spawnTimer = 0;
+    shootCooldown = 0;
     sound->soundInitiate();
 
     // Create the scene
@@ -74,21 +74,31 @@ bool Game::gameOver() {
 }
 
 void Game::gameUpdate() {
+    //20
     if(spawnTimer == 40) {
         spawnEnemy();
         spawnTimer = 0;
     }
+    shootEvent();
+
+
+
     if(!activeEnemies.empty()) {
         for(int i = 0; i < activeEnemies.size(); i++) {
-            //qDebug() << activeEnemies.size();
-            if(enemy->isBulletCollision(activeEnemies[i])) {
-                qDebug() << "yes!      " << i;
+            if(isEnemyCollidingWithBullet(activeEnemies[i])) {
+                for(int i = 0; i < activeBullets.size(); i++) {
+                    if(isBulletCollidingWithEnemy(activeBullets[i])) {
+                        scene->removeItem(activeBullets[i]);
+                        delete activeBullets[i];
+                        activeBullets.erase(activeBullets.begin()+i);
+                    }
+                }
                 score->increase();
-                //Remove both
                 scene->removeItem(activeEnemies[i]);
-//                scene->removeItem()
                 delete activeEnemies[i];
                 activeEnemies.erase(activeEnemies.begin()+i);
+            }
+            if(isEnemyCollidingWithPlayer(activeEnemies[i])) {
             }
             if(activeEnemies[i]->pos().y() > 600) {
                 health->decrease();
@@ -99,79 +109,65 @@ void Game::gameUpdate() {
         }
     }
 
-//    if(!activeBullets.empty()) {
-//        for(int i = 0; i < activeBullets.size(); i++) {
-
-//        }
-//    }
-
-//    QList<QGraphicsItem *> scene_items = scene->items();
-//    for(int i = 0, n = scene_items.size(); i < n; ++i) {
-//        if(typeid (*(scene_items[i])) == typeid (Enemy)){
-//            //qDebug() << "Scene contains enemy!!";
-//            QList<QGraphicsItem *> colliding_enemies = collidingItems();
-//            if(enemy->isBulletCollision()) {
-//                //qDebug() << "isbulletcollision!";
-//            }
-//        }
-//    }
-
-    if(player->isEnemyCollision()) {
-        qDebug() << "isenemycollision!";
-        sound->soundExplosion();
+    if(!activeBullets.empty()) {
+        for(int i = 0; i < activeBullets.size(); i++) {
+            if(activeBullets[i]->pos().y() < 0) {
+                delete activeBullets[i];
+                activeBullets.erase(activeBullets.begin()+i);
+            }
+        }
     }
-//    else {
-//        qDebug() << "KINA ATTACKAREREREREER";
-//    }
-
     spawnTimer++;
-}
-
-void Game::keyPressEvent(QKeyEvent *event) {
-    if (event->key() == Qt::Key_Left) {
-        if(pos().x() > 0){
-            player->setPos(x() - 10, y());
-        }
-    } else if(event->key() == Qt::Key_Right) {
-        if(pos().x() < 800) {
-            player->setPos(x() + 10, y());
-        }
-    } else if(event->key() == Qt::Key_Space) {
-        //create bullet
-        //Bullet * bullet = new Bullet();
-        spawnBullet();
-//        bullet->setPos(x() + 40, y());
-        //scene->addItem(activeBullets.back());
-
-        sound->soundShoot();
-    } /*else if(event->key() == Qt::Key_X) {
-        this->hide();
-    }*/
+    shootCooldown++;
 }
 
 void Game::spawnEnemy(){
-    //Create enemy
-//    Enemy * enemy = new Enemy();
-//    scene->addItem(enemy);
     activeEnemies.push_back(new Enemy());
     scene->addItem(activeEnemies.back());
 };
 
 void Game::spawnBullet() {
-    qDebug() << "Spawn bullet";
     activeBullets.push_back(new Bullet());
-    if(!activeBullets.empty()) {
-        qDebug() << activeBullets.size();
-//        for(int i = 0; i < activeBullets.size(); i++) {
-//            qDebug() << "activebullets";
-//        }
-    }
-    //bullet->setPos(x() + 40, y());
+    activeBullets.back()->setPos(player->x() + 40, player->y());
     scene->addItem(activeBullets.back());
 }
 
-////Pause all timers
-//bool Game::gameOver()
-//{
-//    return true;
-//}
+bool Game::isEnemyCollidingWithBullet(Enemy *enemy) {
+    QList<QGraphicsItem *> enemy_collides = enemy->collidingItems();
+        for(int i = 0, n = enemy_collides.size(); i < n; ++i) {
+            if(typeid (*(enemy_collides[i])) == typeid (Bullet)) {
+                return true;
+            }
+        }
+    return false;
+}
+
+bool Game::isEnemyCollidingWithPlayer(Enemy *enemy) {
+    QList<QGraphicsItem *> enemy_collides = enemy->collidingItems();
+        for(int i = 0, n = enemy_collides.size(); i < n; ++i) {
+            if(typeid (*(enemy_collides[i])) == typeid (Player)) {
+                return true;
+            }
+        }
+        return false;
+}
+
+bool Game::isBulletCollidingWithEnemy(Bullet *bullet) {
+    QList<QGraphicsItem *> bullet_collides = bullet->collidingItems();
+        for(int i = 0, n = bullet_collides.size(); i < n; ++i) {
+            if(typeid (*(bullet_collides[i])) == typeid (Enemy)) {
+                return true;
+            }
+        }
+        return false;
+}
+
+void Game::shootEvent() {
+    if(player->isShooting()) {
+        if(shootCooldown > 0){
+            spawnBullet();
+            sound->soundShoot();
+            shootCooldown = -10;
+        }
+    }
+}

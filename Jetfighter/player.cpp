@@ -15,26 +15,33 @@ Player::Player(QGraphicsItem *parent):QGraphicsPixmapItem(parent){
     sound->soundInitiate();
 }
 
-//void Player::keyPressEvent(QKeyEvent *event) {
-//    if (event->key() == Qt::Key_Left) {
-//        if(pos().x() > 0){
-//            setPos(x() - 10, y());
-//        }
-//    } else if(event->key() == Qt::Key_Right) {
-//        if(pos().x() < 800) {
-//            setPos(x() + 10, y());
-//        }
-//    } else if(event->key() == Qt::Key_Space) {
-//        //create bullet
+void Player::keyPressEvent(QKeyEvent *event) {
+    if (event->key() == Qt::Key_Left) {
+        if(pos().x() > 0){
+            setPos(x() - 10, y());
+        }
+    } else if(event->key() == Qt::Key_Right) {
+        if(pos().x() < 800) {
+            setPos(x() + 10, y());
+        }
+    } else if(event->key() == Qt::Key_Space) {
+        shootPress = true;
+        //create bullet
 //        Bullet * bullet = new Bullet();
 //        bullet->setPos(x() + 40, y());
 //        scene()->addItem(bullet);
 
-//        sound->soundShoot();
-//    } else if(event->key() == Qt::Key_X) {
-//        this->hide();
-//    }
-//}
+        //sound->soundShoot();
+    } /*else if(event->key() == Qt::Key_X) {
+        this->hide();
+    }*/
+}
+
+void Player::keyReleaseEvent(QKeyEvent *event) {
+    if(event->key() == Qt::Key_Space) {
+        shootPress = false;
+    }
+}
 
 //Take action straight away.
 bool Player::isEnemyCollision() {
@@ -47,6 +54,14 @@ bool Player::isEnemyCollision() {
         }
     }
     return false;
+}
+
+bool Player::isShooting() {
+    if(shootPress) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 //void Player::spawn() {
