@@ -21,7 +21,7 @@ public:
     //Put all the items that collides with a powerUp here
     //QList<QGraphicsItem *> list = collidingItems() ;
 
-    bool isOutOfScreen();
+    bool isOutOfScreen(int screenHeight);
 public slots:
     void move();
 

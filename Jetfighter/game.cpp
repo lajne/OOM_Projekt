@@ -129,7 +129,7 @@ void Game::gameUpdate() {
             delete activePowerUps[i];
             activePowerUps.erase(activePowerUps.begin()+i);
         }
-        if(activePowerUps[i]->isOutOfScreen()) {
+        if(activePowerUps[i]->isOutOfScreen(600)) {
             scene->removeItem(activePowerUps[i]);
             delete activePowerUps[i];
             activePowerUps.erase(activePowerUps.begin()+i);
