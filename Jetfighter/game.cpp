@@ -69,9 +69,9 @@ Game::Game(QWidget *parent){
     show();
 }
 
-void Game::gameOver() {
+//void Game::gameOver() {
 
-}
+//}
 
 void Game::gameUpdate() {
     if(spawnTimer == 40) {

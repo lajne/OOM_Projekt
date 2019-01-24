@@ -29,6 +29,7 @@ public:
     Enemy * enemy;
     Score * score;
     Health * health;
+    PowerUp *powerUp;
 
 private:
     std::vector<Enemy*> activeEnemies;
@@ -38,7 +39,7 @@ private:
 public slots:
     void gameUpdate();
 //    void spawnEnemy();
-    PowerUp *powerUp;
+
 };
 
 #endif // GAME_H
