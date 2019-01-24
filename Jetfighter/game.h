@@ -41,7 +41,7 @@ private:
     std::vector<Bullet*> activeBullets;
     std::vector<PowerUp*> activePowerUps;
     Sound *sound = new Sound;
-    int spawnTimer, shootCooldown;
+    int spawnEnemyTimer, spawnPowerUpTimer, shootCooldown;
 
 
 public slots:

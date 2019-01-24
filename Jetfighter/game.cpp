@@ -6,7 +6,8 @@
 
 Game::Game(QWidget *parent){
 
-    spawnTimer = 0;
+    spawnEnemyTimer = 0;
+    spawnPowerUpTimer = 0;
     shootCooldown = 0;
     sound->soundInitiate();
 
@@ -26,7 +27,6 @@ Game::Game(QWidget *parent){
     // Create the player
     player = new Player();
     player->setPos(400, 500);
-//    qDebug() << "player in scene";
 
     //Make the player focusable and set it to be the current focus
     player->setFlag(QGraphicsItem::ItemIsFocusable);
@@ -42,30 +42,10 @@ Game::Game(QWidget *parent){
     health->setPos(health->x(), health->y() + 25);
     scene->addItem(health);
 
-//    //spawn enemies
-//    QTimer * timer = new QTimer();
-//    //Create enemy
-//    QObject::connect(timer, SIGNAL(timeout()), this, SLOT(spawnEnemy()));
-//    timer->start(2000);
-
-    //spawn enemies
     QTimer * gameTimer = new QTimer();
     //Create enemy
     QObject::connect(gameTimer, SIGNAL(timeout()), this, SLOT(gameUpdate()));
     gameTimer->start(50);
-
-    //PowerUp
-    //powerUp = new PowerUp();
-
-    //scene->addItem(powerUp);
-    QTimer *timer2 = new QTimer();
-    QObject::connect(timer2, SIGNAL(timeout()), this, SLOT(spawnPowerUp()));
-    timer2->start(1000);
-
-
-    if(!player->isVisible()) {
-        this->close();
-    }
 
     show();
 }
@@ -77,9 +57,13 @@ Game::Game(QWidget *parent){
 
 void Game::gameUpdate() {
     //20
-    if(spawnTimer == 40) {
+    if(spawnEnemyTimer == 40) {
         spawnEnemy();
-        spawnTimer = 0;
+        spawnEnemyTimer = 0;
+    }
+    if(spawnPowerUpTimer == 60) {
+        spawnPowerUp();
+        spawnPowerUpTimer = 0;
     }
     shootEvent();
 
@@ -101,6 +85,7 @@ void Game::gameUpdate() {
                 activeEnemies.erase(activeEnemies.begin()+i);
             }
             if(isEnemyCollidingWithPlayer(activeEnemies[i])) {
+                //Trigger game over or somethn
             }
             if(activeEnemies[i]->pos().y() > 600) {
                 health->decrease();
@@ -119,7 +104,8 @@ void Game::gameUpdate() {
             }
         }
     }
-    spawnTimer++;
+    spawnEnemyTimer++;
+    spawnPowerUpTimer++;
     shootCooldown++;
 
     //TESTIS
@@ -188,10 +174,8 @@ void Game::shootEvent() {
         }
     }
 }
-}
 
 void Game::spawnPowerUp() {
-
     activePowerUps.push_back(new PowerUp());
     scene->addItem(activePowerUps.back());
 }
@@ -220,16 +204,7 @@ bool Game::isPowerUpPickedUp(PowerUp *pu) {
     return false;
 }
 
-
-
-//void Game::keyPressEvent(QKeyEvent *event)
-//{
-//    if (event->key() == Qt::Key_X) {
-//        this->close();
-//    }
-//}
-
-////Pause all timers
+//Pause all timers
 //bool Game::gameOver()
 //{
 //    return true;
