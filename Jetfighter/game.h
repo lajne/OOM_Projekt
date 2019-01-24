@@ -12,6 +12,7 @@
 #include "score.h"
 #include "health.h"
 #include "powerup.h"
+#include "gametext.h"
 #include <QKeyEvent>
 
 class Game: public QGraphicsView {
@@ -25,15 +26,18 @@ public:
     bool isBulletCollidingWithEnemy(Bullet *bullet);
     void shootEvent();
     bool gameOver();
+    void setGameOverText();
 
 //private:
     QGraphicsScene * scene;
+    QTimer * gameTimer = new QTimer;
     Player * player;
     Enemy * enemy;
     Score * score;
     Health * health;
     PowerUp *powerUp;
     Bullet * bullet;
+    GameText * gameText = new GameText;
     bool isPlayerCollidingWithPowerUp(Player *player);
     bool isPowerUpPickedUp(PowerUp *pu);
 private:

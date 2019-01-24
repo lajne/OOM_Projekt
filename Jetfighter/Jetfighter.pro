@@ -34,7 +34,8 @@ SOURCES += \
     health.cpp \
     sound.cpp \
     plane.cpp \
-    powerup.cpp
+    powerup.cpp \
+    gametext.cpp
 
 HEADERS += \
     bullet.h \
@@ -45,7 +46,8 @@ HEADERS += \
     health.h \
     sound.h \
     plane.h \
-    powerup.h
+    powerup.h \
+    gametext.h
 
 FORMS +=
 

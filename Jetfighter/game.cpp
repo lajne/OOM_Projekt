@@ -42,7 +42,7 @@ Game::Game(QWidget *parent){
     health->setPos(health->x(), health->y() + 25);
     scene->addItem(health);
 
-    QTimer * gameTimer = new QTimer();
+//    QTimer * gameTimer = new QTimer();
     //Create enemy
     QObject::connect(gameTimer, SIGNAL(timeout()), this, SLOT(gameUpdate()));
     gameTimer->start(50);
@@ -86,6 +86,11 @@ void Game::gameUpdate() {
             }
             if(isEnemyCollidingWithPlayer(activeEnemies[i])) {
                 //Trigger game over or somethn
+                health->setZero();
+                setGameOverText();
+                gameTimer->stop();
+                delete  activeEnemies[i];
+                activeEnemies.erase(activeEnemies.begin()+i);
             }
             if(activeEnemies[i]->pos().y() > 600) {
                 health->decrease();
@@ -176,6 +181,10 @@ void Game::shootEvent() {
     }
 }
 
+void Game::setGameOverText() {
+    gameText->gameOver();
+}
+
 void Game::spawnPowerUp() {
     activePowerUps.push_back(new PowerUp());
     scene->addItem(activePowerUps.back());
@@ -191,7 +200,6 @@ bool Game::isPlayerCollidingWithPowerUp(Player *player) {
             }
         }
     }
-
     return false;
 }
 
