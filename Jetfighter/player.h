@@ -14,6 +14,9 @@ public:
     Sound *sound = new Sound;  // TODO: Move sound to game class
 public slots:
     void spawn();
+
+    //Will remove later
+    void spawn2();
 };
 
 #endif // PLAYER_H
