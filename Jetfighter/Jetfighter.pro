@@ -33,6 +33,7 @@ SOURCES += \
     score.cpp \
     health.cpp \
     sound.cpp \
+    plane.cpp
     powerup.cpp
 
 HEADERS += \
@@ -43,6 +44,7 @@ HEADERS += \
     score.h \
     health.h \
     sound.h \
+    plane.h
     powerup.h
 
 FORMS +=

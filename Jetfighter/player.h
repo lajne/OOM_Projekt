@@ -12,8 +12,10 @@ public:
     Player(QGraphicsItem * parent = 0);
     void keyPressEvent (QKeyEvent * event);
     Sound *sound = new Sound;  // TODO: Move sound to game class
+    bool isEnemyCollision();
+//public slots:
+//    void spawn();
 public slots:
-    void spawn();
 
     //Will remove later
     void spawn2();
