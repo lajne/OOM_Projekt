@@ -34,7 +34,7 @@ bool Enemy::isBulletCollision(Enemy *enemy) {
 
     //If bullet collide with enemy, destroy both
     QList<QGraphicsItem *> colliding_bullets = enemy->collidingItems();
-        qDebug() << "2" << colliding_bullets;
+        //qDebug() << "2" << colliding_bullets;
         for(int i = 0, n = colliding_bullets.size(); i < n; ++i) {
             if(typeid (*(colliding_bullets[i])) == typeid (Bullet)) {
                 return true;
@@ -65,6 +65,7 @@ bool Enemy::isBulletCollision(Enemy *enemy) {
 }
 
 void Enemy::move() {
+    qDebug() << "move enemy";
     //Move enemy down
     setPos(x(), y() + 5);
 

@@ -26,7 +26,7 @@ Game::Game(QWidget *parent){
     // Create the player
     player = new Player();
     player->setPos(400, 500);
-    qDebug() << "player in scene";
+//    qDebug() << "player in scene";
 
     //Make the player focusable and set it to be the current focus
     player->setFlag(QGraphicsItem::ItemIsFocusable);
@@ -69,7 +69,7 @@ Game::Game(QWidget *parent){
     show();
 }
 
-void Game::gameOver() {
+bool Game::gameOver() {
 
 }
 
@@ -99,6 +99,12 @@ void Game::gameUpdate() {
         }
     }
 
+//    if(!activeBullets.empty()) {
+//        for(int i = 0; i < activeBullets.size(); i++) {
+
+//        }
+//    }
+
 //    QList<QGraphicsItem *> scene_items = scene->items();
 //    for(int i = 0, n = scene_items.size(); i < n; ++i) {
 //        if(typeid (*(scene_items[i])) == typeid (Enemy)){
@@ -115,10 +121,32 @@ void Game::gameUpdate() {
         sound->soundExplosion();
     }
 //    else {
-////        qDebug() << "KINA ATTACKAREREREREER";
+//        qDebug() << "KINA ATTACKAREREREREER";
 //    }
 
     spawnTimer++;
+}
+
+void Game::keyPressEvent(QKeyEvent *event) {
+    if (event->key() == Qt::Key_Left) {
+        if(pos().x() > 0){
+            player->setPos(x() - 10, y());
+        }
+    } else if(event->key() == Qt::Key_Right) {
+        if(pos().x() < 800) {
+            player->setPos(x() + 10, y());
+        }
+    } else if(event->key() == Qt::Key_Space) {
+        //create bullet
+        //Bullet * bullet = new Bullet();
+        spawnBullet();
+//        bullet->setPos(x() + 40, y());
+        //scene->addItem(activeBullets.back());
+
+        sound->soundShoot();
+    } /*else if(event->key() == Qt::Key_X) {
+        this->hide();
+    }*/
 }
 
 void Game::spawnEnemy(){
@@ -128,12 +156,19 @@ void Game::spawnEnemy(){
     activeEnemies.push_back(new Enemy());
     scene->addItem(activeEnemies.back());
 };
-//void Game::keyPressEvent(QKeyEvent *event)
-//{
-//    if (event->key() == Qt::Key_X) {
-//        this->close();
-//    }
-//}
+
+void Game::spawnBullet() {
+    qDebug() << "Spawn bullet";
+    activeBullets.push_back(new Bullet());
+    if(!activeBullets.empty()) {
+        qDebug() << activeBullets.size();
+//        for(int i = 0; i < activeBullets.size(); i++) {
+//            qDebug() << "activebullets";
+//        }
+    }
+    //bullet->setPos(x() + 40, y());
+    scene->addItem(activeBullets.back());
+}
 
 ////Pause all timers
 //bool Game::gameOver()

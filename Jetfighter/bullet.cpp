@@ -9,12 +9,14 @@
 extern Game * game; //there is an external global object called game.
 
 Bullet::Bullet(QGraphicsItem *parent): QObject (), QGraphicsPixmapItem(parent) {
+    setPos(x() + 40, y());
     //Draw graphics
     setPixmap(QPixmap(":/images/bullet4.png"));
 
     //make/connect a timer to move() the bullet every so often
     QTimer * timer = new QTimer();
-    connect(timer, SIGNAL(timeout()), this, SLOT(move()));
+    QObject::connect(timer, SIGNAL(timeout()), this, SLOT(move()));
+
 
     // Every 50 ms the bullet will move
     timer->start(50);
@@ -23,6 +25,7 @@ Bullet::Bullet(QGraphicsItem *parent): QObject (), QGraphicsPixmapItem(parent) {
 }
 
 void Bullet::move() {
+    qDebug() << "move bullet";
 //    //If bullet collide with enemy, destroy both
 //    QList<QGraphicsItem *> colliding_items = collidingItems();
 
@@ -47,6 +50,7 @@ void Bullet::move() {
 
     //if no collisions with enemies, move the bullet forward
     setPos(x(), y() - 10);
+    qDebug() << "Should move";
 
     // If the bullet is off the screen, destroy it
     if(pos().y() < 0) {
