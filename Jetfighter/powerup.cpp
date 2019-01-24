@@ -23,10 +23,10 @@ void PowerUp::move()
 {
     setPos(x(), y() + 5);
 
-    if(pos().y() > 600) {
-        scene()->removeItem(this);
-        delete this;
-    }
+//    if(pos().y() > 600) {
+//        scene()->removeItem(this);
+//        delete this;
+//    }
 
     //Add detection for collision
 }
@@ -38,4 +38,12 @@ void PowerUp::spawn()
     //Create new powerUp
     PowerUp *powerUp = new PowerUp();
     scene()->addItem(powerUp);
+}
+
+bool PowerUp::isOutOfScreen()
+{
+    if(pos().y() > 600) {
+        return true;
+    }
+    return false;
 }

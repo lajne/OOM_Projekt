@@ -13,12 +13,15 @@ public:
     void keyPressEvent (QKeyEvent * event);
     Sound *sound = new Sound;  // TODO: Move sound to game class
     bool isEnemyCollision();
+
+    QList<QGraphicsItem> returnCollidingItemsList();
+    QList<QGraphicsItem *> collidingList = collidingItems();
 //public slots:
 //    void spawn();
 public slots:
 
     //Will remove later
-    void spawn2();
+    //void spawn2();
 };
 
 #endif // PLAYER_H
