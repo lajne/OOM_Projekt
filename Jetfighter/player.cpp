@@ -17,28 +17,20 @@ Player::Player(QGraphicsItem *parent):QGraphicsPixmapItem(parent){
 
 void Player::keyPressEvent(QKeyEvent *event) {
     if (event->key() == Qt::Key_Left) {
-        if(pos().x() > 0){
-            setPos(x() - 10, y());
-        }
+        leftPress = true;
     } else if(event->key() == Qt::Key_Right) {
-        if(pos().x() < 800) {
-            setPos(x() + 10, y());
-        }
+        rightPress = true;
     } else if(event->key() == Qt::Key_Space) {
         shootPress = true;
-        //create bullet
-//        Bullet * bullet = new Bullet();
-//        bullet->setPos(x() + 40, y());
-//        scene()->addItem(bullet);
-
-        //sound->soundShoot();
-    } /*else if(event->key() == Qt::Key_X) {
-        this->hide();
-    }*/
+    }
 }
 
 void Player::keyReleaseEvent(QKeyEvent *event) {
-    if(event->key() == Qt::Key_Space) {
+    if(event->key() == Qt::Key_Left) {
+        leftPress = false;
+    } else if (event->key() == Qt::Key_Right) {
+        rightPress = false;
+    } else if(event->key() == Qt::Key_Space) {
         shootPress = false;
     }
 }
@@ -61,6 +53,18 @@ bool Player::isShooting() {
         return true;
     } else {
         return false;
+    }
+}
+
+void Player::movement() {
+    if(leftPress) {
+        if(pos().x() > 0){
+            setPos(x() - 10, y());
+        }
+    } else if (rightPress) {
+        if(pos().x() < 800) {
+            setPos(x() + 10, y());
+        }
     }
 }
 

@@ -67,7 +67,7 @@ void Game::gameUpdate() {
     }
     shootEvent();
 
-
+    player->movement();
 
     if(!activeEnemies.empty()) {
         for(int i = 0; i < activeEnemies.size(); i++) {
