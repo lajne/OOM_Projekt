@@ -10,13 +10,18 @@
 #include "enemy.h"
 #include "score.h"
 #include "health.h"
+#include "powerup.h"
+#include <QKeyEvent>
 
 class Game: public QGraphicsView {
     Q_OBJECT
 public:
     Game(QWidget * parent = 0);
-    void gameOver();
     void spawnEnemy();
+    //Test
+    //void keyPressEvent (QKeyEvent * event);
+
+    //bool gameOver();
 
 //private:
     QGraphicsScene * scene;
@@ -33,6 +38,7 @@ private:
 public slots:
     void gameUpdate();
 //    void spawnEnemy();
+    PowerUp *powerUp;
 };
 
 #endif // GAME_H

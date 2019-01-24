@@ -6,6 +6,8 @@
 #include <QString>
 #include <QDebug>
 
+#include "powerup.h"
+
 Player::Player(QGraphicsItem *parent):QGraphicsPixmapItem(parent){
     //Set graphics
     setPixmap(QPixmap(":/images/player_plane.png"));
@@ -29,6 +31,8 @@ void Player::keyPressEvent(QKeyEvent *event) {
         scene()->addItem(bullet);
 
         sound->soundShoot();
+    } else if(event->key() == Qt::Key_X) {
+        this->hide();
     }
 }
 
@@ -50,3 +54,8 @@ bool Player::isEnemyCollision() {
 //    Enemy * enemy = new Enemy();
 //    scene()->addItem(enemy);
 //}
+//Will remove later
+void Player::spawn2() {
+    PowerUp *powerUp = new PowerUp();
+    scene()->addItem(powerUp);
+}

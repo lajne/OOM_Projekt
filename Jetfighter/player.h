@@ -15,6 +15,10 @@ public:
     bool isEnemyCollision();
 //public slots:
 //    void spawn();
+public slots:
+
+    //Will remove later
+    void spawn2();
 };
 
 #endif // PLAYER_H
