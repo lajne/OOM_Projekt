@@ -44,9 +44,10 @@ private:
     std::vector<Enemy*> activeEnemies;
     std::vector<Bullet*> activeBullets;
     std::vector<PowerUp*> activePowerUps;
+    std::vector<GameText*> text;     //text[0] = level, text[1] = gameover
     Sound *sound = new Sound;
-    int spawnEnemyTimer, spawnPowerUpTimer, shootCooldown;
-
+    int spawnEnemyTimer, spawnPowerUpTimer, shootCooldown, levelTimer, levelCounter;
+    int enemySpeed = 5;
 
 public slots:
     void gameUpdate();
