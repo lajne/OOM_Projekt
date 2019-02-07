@@ -12,6 +12,8 @@
 #include "score.h"
 #include "health.h"
 #include "powerup.h"
+#include "coin.h"
+#include "lifeup.h"
 #include <QKeyEvent>
 
 class Game: public QGraphicsView {
@@ -34,8 +36,9 @@ public:
     Health * health;
     PowerUp *powerUp;
     Bullet * bullet;
-    bool isPlayerCollidingWithPowerUp(Player *player);
-    bool isPowerUpPickedUp(PowerUp *pu);
+    //bool isPlayerCollidingWithPowerUp(Player *player);
+    bool isCoinPickedUp(PowerUp *pu);
+    bool isHealthPickedUp(PowerUp *pu);
 private:
     std::vector<Enemy*> activeEnemies;
     std::vector<Bullet*> activeBullets;
@@ -47,7 +50,8 @@ private:
 public slots:
     void gameUpdate();
 //    void spawnEnemy();
-    void spawnPowerUp();
+    void spawnCoin();
+    void spawnHealth();
 };
 
 #endif // GAME_H

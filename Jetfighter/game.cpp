@@ -62,7 +62,8 @@ void Game::gameUpdate() {
         spawnEnemyTimer = 0;
     }
     if(spawnPowerUpTimer == 60) {
-        spawnPowerUp();
+        spawnCoin();
+        spawnHealth();
         spawnPowerUpTimer = 0;
     }
     shootEvent();
@@ -110,16 +111,23 @@ void Game::gameUpdate() {
 
     //TESTIS
     for(int i=0; i<activePowerUps.size(); i++) {
-        if(isPowerUpPickedUp(activePowerUps[i])) {
+        if(isCoinPickedUp(activePowerUps[i])) {
             sound->soundCoin();
             scene->removeItem(activePowerUps[i]);
             score->increase();
             delete activePowerUps[i];
             activePowerUps.erase(activePowerUps.begin()+i);
         }
+        if(isHealthPickedUp(activePowerUps[i])) {
+            scene->removeItem(activePowerUps[i]);
+            health->increase();
+            delete activePowerUps[i];
+            activePowerUps.erase(activePowerUps.begin()+i);
+        }
         if(activePowerUps[i]->isOutOfScreen(600)) {
             scene->removeItem(activePowerUps[i]);
             delete activePowerUps[i];
+            //What does this do?? :s
             activePowerUps.erase(activePowerUps.begin()+i);
         }
     }
@@ -128,7 +136,7 @@ void Game::gameUpdate() {
 void Game::spawnEnemy(){
     activeEnemies.push_back(new Enemy());
     scene->addItem(activeEnemies.back());
-};
+}
 
 void Game::spawnBullet() {
     activeBullets.push_back(new Bullet());
@@ -176,29 +184,46 @@ void Game::shootEvent() {
     }
 }
 
-void Game::spawnPowerUp() {
-    activePowerUps.push_back(new PowerUp());
+//This will chaneg name later
+void Game::spawnCoin() {
+    activePowerUps.push_back(new Coin());
     scene->addItem(activePowerUps.back());
 }
 
-bool Game::isPlayerCollidingWithPowerUp(Player *player) {
-    qDebug()<<"im in";
-    QList<QGraphicsItem *> collidingList = player->collidingItems();
-    if(collidingList.size() > 0) {
-        for(int i=0; i<collidingList.size(); i++) {
-            if(typeid (*(collidingList[i])) == typeid (PowerUp)) {
-                return true;
-            }
+// Can I remove this
+//bool Game::isPlayerCollidingWithPowerUp(Player *player) {
+//    qDebug()<<"im in";
+//    QList<QGraphicsItem *> collidingList = player->collidingItems();
+//    if(collidingList.size() > 0) {
+//        for(int i=0; i<collidingList.size(); i++) {
+//            if(typeid (*(collidingList[i])) == typeid (PowerUp)) {
+//                return true;
+//            }
+//        }
+//    }
+
+//    return false;
+//}
+
+bool Game::isCoinPickedUp(PowerUp *pu) {
+    QList<QGraphicsItem *> collidingList = pu->collidingItems();
+    for(int i=0; i<collidingList.size(); i++) {
+        if(typeid (*(collidingList[i])) == typeid (Player) && typeid(*pu) == typeid(Coin)) {
+            return true;
         }
     }
-
     return false;
 }
 
-bool Game::isPowerUpPickedUp(PowerUp *pu) {
+void Game::spawnHealth() {
+    activePowerUps.push_back(new LifeUp());
+    scene->addItem(activePowerUps.back());
+}
+
+bool Game::isHealthPickedUp(PowerUp *pu) {
     QList<QGraphicsItem *> collidingList = pu->collidingItems();
     for(int i=0; i<collidingList.size(); i++) {
-        if(typeid (*(collidingList[i])) == typeid (Player)) {
+        if(typeid (*(collidingList[i])) == typeid (Player) && typeid(*pu) == typeid(LifeUp)) {
             return true;
         }
     }
