@@ -19,8 +19,6 @@ Enemy::Enemy(QGraphicsItem *parent): QObject (), QGraphicsPixmapItem(parent) {
     //Drew rect
     setPixmap(QPixmap(":/images/enemy_plane.png"));
 
-    //make/connect a timer to move() the enemy every so often
-    QTimer * timer = new QTimer();
     connect(timer, SIGNAL(timeout()), this, SLOT(move()));
 
     // Every 50 ms the bullet will move
@@ -29,32 +27,10 @@ Enemy::Enemy(QGraphicsItem *parent): QObject (), QGraphicsPixmapItem(parent) {
     sound->soundInitiate();
 }
 
-// check if collision with bullet
-//bool Enemy::isBulletCollision(Enemy *enemy) {
-
-//    //If bullet collide with enemy, destroy both
-//    QList<QGraphicsItem *> colliding_bullets = enemy->collidingItems();
-//        //qDebug() << "2" << colliding_bullets;
-//        for(int i = 0, n = colliding_bullets.size(); i < n; ++i) {
-//            if(typeid (*(colliding_bullets[i])) == typeid (Bullet)) {
-//                return true;
-//            }
-//        }
-//    return false;
-//}
+void Enemy::stop() {
+    timer->stop();
+}
 
 void Enemy::move() {
-//    qDebug() << "move enemy";
-    //Move enemy down
     setPos(x(), y() + 5);
-
-//    if(pos().y() > 600) {
-//        //decrease health
-//        game->health->decrease();
-
-//        scene()->removeItem(this);
-//        delete this;
-
-//        qDebug() << "Enemy deleted by end of scene";
-//    }
 };
