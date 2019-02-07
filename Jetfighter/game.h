@@ -12,6 +12,8 @@
 #include "score.h"
 #include "health.h"
 #include "powerup.h"
+#include "coin.h"
+#include "lifeup.h"
 #include "gametext.h"
 #include <QKeyEvent>
 
@@ -37,22 +39,25 @@ public:
     Health * health;
     PowerUp *powerUp;
     Bullet * bullet;
+    //bool isPlayerCollidingWithPowerUp(Player *player);
+    bool isCoinPickedUp(PowerUp *pu);
+    bool isHealthPickedUp(PowerUp *pu);
     GameText * gameText;
-    bool isPlayerCollidingWithPowerUp(Player *player);
-    bool isPowerUpPickedUp(PowerUp *pu);
+  
 private:
     std::vector<Enemy*> activeEnemies;
     std::vector<Bullet*> activeBullets;
     std::vector<PowerUp*> activePowerUps;
     std::vector<GameText*> text;     //text[0] = level, text[1] = gameover
     Sound *sound = new Sound;
-    int spawnEnemyTimer, spawnPowerUpTimer, shootCooldown, levelTimer, levelCounter;
+    int spawnEnemyTimer, spawnCoinTimer, shootCooldown, spawnHealthTimer, levelTimer, levelCounter;
     int enemySpeed = 5;
 
 public slots:
     void gameUpdate();
 //    void spawnEnemy();
-    void spawnPowerUp();
+    void spawnCoin();
+    void spawnHealth();
 };
 
 #endif // GAME_H

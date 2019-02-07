@@ -35,7 +35,10 @@ SOURCES += \
     sound.cpp \
     plane.cpp \
     powerup.cpp \
+    coin.cpp \
+    lifeup.cpp \
     gametext.cpp
+
 
 HEADERS += \
     bullet.h \
@@ -47,6 +50,8 @@ HEADERS += \
     sound.h \
     plane.h \
     powerup.h \
+    coin.h \
+    lifeup.h \
     gametext.h
 
 FORMS +=

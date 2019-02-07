@@ -11,6 +11,11 @@ Health::Health(QGraphicsItem * parent): QGraphicsTextItem (parent) {
     setFont(QFont("times", 24));
 }
 
+void Health::increase() {
+    health++;
+    setPlainText(QString("Health: ") + QString::number(health));
+}
+
 void Health::decrease() {
     health--;
     setPlainText(QString("Health: ") + QString::number(health));    //Health: 2
