@@ -65,6 +65,7 @@ void Game::gameUpdate() {
         spawnEnemyTimer = 0;
     }
     if(spawnCoinTimer == 60) {
+        qDebug() << "spawncoin";
         spawnCoin();
         spawnCoinTimer = 0;
     }
@@ -77,6 +78,7 @@ void Game::gameUpdate() {
         enemySpeed += 1;
     }
     if(spawnHealthTimer == 200) {
+        qDebug() << "spawnhealth";
         spawnHealth();
         spawnHealthTimer = 0;
     }
@@ -212,6 +214,7 @@ void Game::shootEvent() {
 
 void Game::spawnCoin() {
     activePowerUps.push_back(new Coin());
+    scene->addItem(activePowerUps.back());
 }
 
 bool Game::isCoinPickedUp(PowerUp *pu) {
