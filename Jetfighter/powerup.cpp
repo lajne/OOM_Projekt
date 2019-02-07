@@ -1,20 +1,11 @@
 #include "powerup.h"
 
-//#include "game.h"
-
-//extern Game *game;
-
 PowerUp::PowerUp(QGraphicsItem *parent, int moveSpeed) : QObject(), QGraphicsPixmapItem(parent)
 {
     //Generate random number and set position
     int randomNumber = 50 + rand() % 700;
     setPos(randomNumber, 0);
-    this->moveSpeed = moveSpeed;
-
-    //Draw graphics
-    //this->setPixmap(QPixmap(":/images/coin.png"));
-
-    //Call move so it moves every 50 ms
+    this->_moveSpeed = moveSpeed;
 
     connect(timer, SIGNAL(timeout()), this, SLOT(move()));
     timer->start(50);
@@ -22,17 +13,8 @@ PowerUp::PowerUp(QGraphicsItem *parent, int moveSpeed) : QObject(), QGraphicsPix
 
 void PowerUp::move()
 {
-    setPos(x(), y() + this->moveSpeed);
+    setPos(x(), y() + this->_moveSpeed);
 }
-
-
-//This isn't used atm
-//void PowerUp::spawn()
-//{
-//    //Create new powerUp
-//    PowerUp *powerUp = new PowerUp();
-//    scene()->addItem(powerUp);
-//}
 
 bool PowerUp::isOutOfScreen(int screenHeight)
 {
