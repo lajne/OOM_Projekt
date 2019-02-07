@@ -5,7 +5,7 @@
 #include <QObject>
 #include <QGraphicsItem>
 #include "player.h"
-//#include "arena.h"
+#include <QTimer>
 #include "sound.h"
 
 class Bullet: public QObject, public QGraphicsPixmapItem {
@@ -14,6 +14,10 @@ public:
     //Parametrar: (Arena * a, Player * p, QGraphicsItem * parent = 0)
     Bullet(QGraphicsItem * parent = 0);
     Sound *sound = new Sound;
+    void stop();
+
+private:
+    QTimer * timer = new QTimer();
 
 //SKA VI HA ?
 //private:

@@ -10,6 +10,7 @@ public:
     void increase();
     void decrease();
     int getHealth();
+    void setZero();
 private:
     int health;
 };
