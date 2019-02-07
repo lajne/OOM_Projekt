@@ -9,6 +9,8 @@ Game::Game(QWidget *parent){
     spawnEnemyTimer = 0;
     spawnCoinTimer = 0;
     shootCooldown = 0;
+    levelTimer = 600;
+    levelCounter = 1;
     sound->soundInitiate();
 
     // Create the scene
@@ -35,9 +37,13 @@ Game::Game(QWidget *parent){
     // Add the player to the scene
     scene->addItem(player);
 
-    //Create score and health and text
-    gameText = new GameText();
-    scene->addItem(gameText);
+    // Add gametext
+    for(int i = 0; i < 2; i++) {
+        text.push_back(new GameText());
+        scene->addItem(text[i]);
+    }
+
+    //Create score and health
     score = new Score();
     scene->addItem(score);
     health = new Health();
@@ -52,11 +58,6 @@ Game::Game(QWidget *parent){
     show();
 }
 
-//void Game::gameOver() {
-
-
-//}
-
 void Game::gameUpdate() {
     //20
     if(spawnEnemyTimer == 40) {
@@ -66,6 +67,14 @@ void Game::gameUpdate() {
     if(spawnCoinTimer == 60) {
         spawnCoin();
         spawnCoinTimer = 0;
+    }
+    if(levelTimer == 600) {
+        qDebug() << "level:" << levelCounter;
+        text[0]->level(levelCounter);
+        levelTimer = 0;
+        levelCounter++;
+        qDebug() << "speed:" << enemySpeed;
+        enemySpeed += 1;
     }
     if(spawnHealthTimer == 200) {
         spawnHealth();
@@ -78,6 +87,12 @@ void Game::gameUpdate() {
 
     if(!activeEnemies.empty()) {
         for(int i = 0; i < activeEnemies.size(); i++) {
+            if(health->getHealth() == 0) {
+                text[1]->gameOver();
+                gameTimer->stop();
+                delete  activeEnemies[i];
+                activeEnemies.erase(activeEnemies.begin()+i);
+            }
             if(isEnemyCollidingWithBullet(activeEnemies[i])) {
                 for(int i = 0; i < activeBullets.size(); i++) {
                     if(isBulletCollidingWithEnemy(activeBullets[i])) {
@@ -91,14 +106,9 @@ void Game::gameUpdate() {
                 delete activeEnemies[i];
                 activeEnemies.erase(activeEnemies.begin()+i);
             }
-            //GAME OVER
             if(isEnemyCollidingWithPlayer(activeEnemies[i])) {
                 sound->soundExplosion();
                 health->setZero();
-                gameText->gameOver();
-                gameTimer->stop();
-                delete  activeEnemies[i];
-                activeEnemies.erase(activeEnemies.begin()+i);
             }
             if(activeEnemies[i]->pos().y() > 600) {
                 health->decrease();
@@ -117,10 +127,12 @@ void Game::gameUpdate() {
             }
         }
     }
+
     spawnEnemyTimer++;
     spawnCoinTimer++;
     spawnHealthTimer++;
     shootCooldown++;
+    levelTimer++;
 
     //TESTIS
     for(int i=0; i<activePowerUps.size(); i++) {
@@ -148,6 +160,7 @@ void Game::gameUpdate() {
 
 void Game::spawnEnemy(){
     activeEnemies.push_back(new Enemy());
+    activeEnemies.back()->setSpeed(enemySpeed);
     scene->addItem(activeEnemies.back());
 }
 
@@ -200,24 +213,6 @@ void Game::shootEvent() {
 void Game::spawnCoin() {
     activePowerUps.push_back(new Coin());
 }
-void Game::setGameOverText() {
-    gameText->gameOver();
-}
-
-// Can I remove this
-//bool Game::isPlayerCollidingWithPowerUp(Player *player) {
-//    qDebug()<<"im in";
-//    QList<QGraphicsItem *> collidingList = player->collidingItems();
-//    if(collidingList.size() > 0) {
-//        for(int i=0; i<collidingList.size(); i++) {
-//            if(typeid (*(collidingList[i])) == typeid (PowerUp)) {
-//                return true;
-//            }
-//        }
-//    }
-
-//    return false;
-//}
 
 bool Game::isCoinPickedUp(PowerUp *pu) {
     QList<QGraphicsItem *> collidingList = pu->collidingItems();
