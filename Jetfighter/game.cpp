@@ -35,7 +35,9 @@ Game::Game(QWidget *parent){
     // Add the player to the scene
     scene->addItem(player);
 
-    //Create score and health
+    //Create score and health and text
+    gameText = new GameText();
+    scene->addItem(gameText);
     score = new Score();
     scene->addItem(score);
     health = new Health();
@@ -84,10 +86,10 @@ void Game::gameUpdate() {
                 delete activeEnemies[i];
                 activeEnemies.erase(activeEnemies.begin()+i);
             }
+            //GAME OVER
             if(isEnemyCollidingWithPlayer(activeEnemies[i])) {
-                //Trigger game over or somethn
                 health->setZero();
-                setGameOverText();
+                gameText->gameOver();
                 gameTimer->stop();
                 delete  activeEnemies[i];
                 activeEnemies.erase(activeEnemies.begin()+i);

@@ -37,7 +37,7 @@ public:
     Health * health;
     PowerUp *powerUp;
     Bullet * bullet;
-    GameText * gameText = new GameText;
+    GameText * gameText;
     bool isPlayerCollidingWithPowerUp(Player *player);
     bool isPowerUpPickedUp(PowerUp *pu);
 private:

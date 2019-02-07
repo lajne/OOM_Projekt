@@ -1,13 +1,20 @@
 #include "gametext.h"
+#include <QDebug>
+#include <QFont>
 
 GameText::GameText(QGraphicsItem *parent): QGraphicsTextItem (parent) {
-    //this->setScale(5);
-    this->setDefaultTextColor(Qt::white);
-    //this->setTransformOriginPoint(this->boundingRect().center());
+    setDefaultTextColor(Qt::white);
+    setFont(QFont("times, 24"));
 }
 
+void GameText::position(int x, int y) {
+    this->setPos(x, y);
+}
+
+
+
 void GameText::gameOver() {
-    this->setPos(300,300);
-    this->setPlainText(QString("Game Over"));
-//    setScale(10);
+    this->setPos(110, 150);
+    setPlainText(QString("Game Over"));
+    setScale(10);
 }
