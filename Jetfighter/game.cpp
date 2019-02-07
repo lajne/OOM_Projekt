@@ -8,6 +8,7 @@ Game::Game(QWidget *parent){
 
     spawnEnemyTimer = 0;
     spawnCoinTimer = 0;
+    spawnHealthTimer = 0;
     shootCooldown = 0;
     levelTimer = 600;
     levelCounter = 1;
