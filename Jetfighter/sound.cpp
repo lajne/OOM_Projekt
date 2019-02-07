@@ -10,6 +10,8 @@ void Sound::soundInitiate() {
     explosionSound.setSource(QUrl::fromLocalFile(":/sounds/explosion2.wav"));
     bulletHitSound.setSource(QUrl::fromLocalFile(":/sounds/gunfire.wav"));
     coinHitSound.setSource(QUrl::fromLocalFile(":/sounds/coin.wav"));
+    healthUpSound.setSource(QUrl::fromLocalFile(":/sounds/healthup.wav"));
+    levelUpSound.setSource(QUrl::fromLocalFile(":/sounds/lvlup2.wav"));
 }
 
 void Sound::soundShoot() {
@@ -29,6 +31,14 @@ void Sound::soundBulletHit() {
 
 void Sound::soundCoin() {
     coinHitSound.play();
+}
+
+void Sound::soundHealthUp(){
+    healthUpSound.play();
+}
+
+void Sound::soundLevelUp() {
+    levelUpSound.play();
 }
 
 

@@ -13,11 +13,15 @@ class Sound: public QSoundEffect {
     void soundExplosion();
     void soundBulletHit();
     void soundCoin();
+    void soundHealthUp();
+    void soundLevelUp();
 private:
     QSoundEffect shootSound;
     QSoundEffect explosionSound;
     QSoundEffect bulletHitSound;
     QSoundEffect coinHitSound;
+    QSoundEffect healthUpSound;
+    QSoundEffect levelUpSound;
 };
 
 #endif // SOUND_H

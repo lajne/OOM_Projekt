@@ -7,6 +7,9 @@
         <file>explosion.mp3</file>
         <file>explosion2.wav</file>
         <file>coin.wav</file>
+        <file>lvlup.wav</file>
+        <file>healthup.wav</file>
+        <file>lvlup2.wav</file>
     </qresource>
     <qresource prefix="/images">
         <file>bullet4.png</file>

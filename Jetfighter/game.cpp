@@ -71,6 +71,9 @@ void Game::gameUpdate() {
         spawnCoinTimer = 0;
     }
     if(levelTimer == 600) {
+        if(levelCounter > 1) {
+            sound->soundLevelUp();
+        }
         qDebug() << "level:" << levelCounter;
         text[0]->level(levelCounter);
         levelTimer = 0;
@@ -149,6 +152,7 @@ void Game::gameUpdate() {
         if(isHealthPickedUp(activePowerUps[i])) {
             scene->removeItem(activePowerUps[i]);
             health->increase();
+            sound->soundHealthUp();
             delete activePowerUps[i];
             activePowerUps.erase(activePowerUps.begin()+i);
         }
