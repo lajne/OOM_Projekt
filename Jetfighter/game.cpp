@@ -88,6 +88,7 @@ void Game::gameUpdate() {
             }
             //GAME OVER
             if(isEnemyCollidingWithPlayer(activeEnemies[i])) {
+                sound->soundExplosion();
                 health->setZero();
                 gameText->gameOver();
                 gameTimer->stop();
