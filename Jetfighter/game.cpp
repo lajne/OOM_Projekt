@@ -7,7 +7,7 @@
 Game::Game(QWidget *parent){
 
     spawnEnemyTimer = 0;
-    spawnPowerUpTimer = 0;
+    spawnCoinTimer = 0;
     shootCooldown = 0;
     sound->soundInitiate();
 
@@ -61,11 +61,15 @@ void Game::gameUpdate() {
         spawnEnemy();
         spawnEnemyTimer = 0;
     }
-    if(spawnPowerUpTimer == 60) {
+    if(spawnCoinTimer == 60) {
         spawnCoin();
-        spawnHealth();
-        spawnPowerUpTimer = 0;
+        spawnCoinTimer = 0;
     }
+    if(spawnHealthTimer == 200) {
+        spawnHealth();
+        spawnHealthTimer = 0;
+    }
+
     shootEvent();
 
     player->movement();
@@ -106,7 +110,8 @@ void Game::gameUpdate() {
         }
     }
     spawnEnemyTimer++;
-    spawnPowerUpTimer++;
+    spawnCoinTimer++;
+    spawnHealthTimer++;
     shootCooldown++;
 
     //TESTIS
