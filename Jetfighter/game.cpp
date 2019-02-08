@@ -6,7 +6,7 @@
 
 Game::Game(QWidget *parent){
 
-    spawnEnemyTimer = 0;
+    spawnEnemyLvl1Timer = 0;
     spawnCoinTimer = 0;
     spawnHealthTimer = 0;
     shootCooldown = 0;
@@ -61,9 +61,14 @@ Game::Game(QWidget *parent){
 
 void Game::gameUpdate() {
     //20
-    if(spawnEnemyTimer == 40) {
-        spawnEnemy();
-        spawnEnemyTimer = 0;
+    if(spawnEnemyLvl1Timer == 40) {
+        spawnEnemyLvl1();
+        spawnEnemyLvl1Timer = 0;
+    }
+    if(spawnEnemyLvl2Timer == 600) {
+        qDebug() << "ENemy LVL2";
+        spawnEnemyLvl2();
+        spawnEnemyLvl2Timer = 0;
     }
     if(spawnCoinTimer == 60) {
         qDebug() << "spawncoin";
@@ -93,6 +98,7 @@ void Game::gameUpdate() {
 
     if(!activeEnemies.empty()) {
         for(int i = 0; i < activeEnemies.size(); i++) {
+            //Why do we check this here?
             if(health->getHealth() == 0) {
                 text[1]->gameOver();
                 gameTimer->stop();
@@ -107,10 +113,16 @@ void Game::gameUpdate() {
                         activeBullets.erase(activeBullets.begin()+i);
                     }
                 }
-                score->increase();
-                scene->removeItem(activeEnemies[i]);
-                delete activeEnemies[i];
-                activeEnemies.erase(activeEnemies.begin()+i);
+
+                //Test
+                activeEnemies[i]->decreaseHealth();
+                if(activeEnemies[i]->isDead()) {
+                    score->increase();
+                    scene->removeItem(activeEnemies[i]);
+                    delete activeEnemies[i];
+                    activeEnemies.erase(activeEnemies.begin()+i);
+                }
+
             }
             if(isEnemyCollidingWithPlayer(activeEnemies[i])) {
                 sound->soundExplosion();
@@ -134,13 +146,14 @@ void Game::gameUpdate() {
         }
     }
 
-    spawnEnemyTimer++;
+    spawnEnemyLvl1Timer++;
+    spawnEnemyLvl2Timer++;
     spawnCoinTimer++;
     spawnHealthTimer++;
     shootCooldown++;
     levelTimer++;
 
-    //TESTIS
+    //Power ups
     for(int i=0; i<activePowerUps.size(); i++) {
         if(isCoinPickedUp(activePowerUps[i])) {
             sound->soundCoin();
@@ -165,9 +178,16 @@ void Game::gameUpdate() {
     }
 }
 
-void Game::spawnEnemy(){
-    activeEnemies.push_back(new Enemy());
-    activeEnemies.back()->setSpeed(enemySpeed);
+void Game::spawnEnemyLvl1(){
+    //activeEnemies.push_back(new Enemy(enemySpeed));
+    //scene->addItem(activeEnemies.back());
+    //TEMP
+    activeEnemies.push_back(new EnemyLvl1(enemySpeed));
+    scene->addItem(activeEnemies.back());
+}
+
+void Game::spawnEnemyLvl2() {
+    activeEnemies.push_back(new EnemyLvl2(enemySpeed));
     scene->addItem(activeEnemies.back());
 }
 
@@ -200,7 +220,8 @@ bool Game::isEnemyCollidingWithPlayer(Enemy *enemy) {
 bool Game::isBulletCollidingWithEnemy(Bullet *bullet) {
     QList<QGraphicsItem *> bullet_collides = bullet->collidingItems();
         for(int i = 0, n = bullet_collides.size(); i < n; ++i) {
-            if(typeid (*(bullet_collides[i])) == typeid (Enemy)) {
+            if(typeid(*(bullet_collides[i])) == typeid (EnemyLvl1) ||
+               typeid(*(bullet_collides[i])) == typeid(EnemyLvl2)) {
                 return true;
             }
         }

@@ -12,14 +12,18 @@
 class Enemy: public QObject, public QGraphicsPixmapItem {
     Q_OBJECT
 public:
-    Enemy(QGraphicsItem * parent = 0, int moveSpeed = 0);
+    Enemy(int moveSpeed, int health, QGraphicsItem * parent = 0);
     Sound *sound = new Sound;
     void stop();
     void setSpeed(int speed);
+    void setHealth(int health);
+    void decreaseHealth();
+    bool isDead();
 
 private:
     QTimer * timer = new QTimer();
     int _moveSpeed;
+    int _health;
 
 public slots:
     void move();

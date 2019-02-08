@@ -18,5 +18,6 @@
         <file>ground.png</file>
         <file>coin.png</file>
         <file>heart.png</file>
+        <file>enemy2_plane.png</file>
     </qresource>
 </RCC>

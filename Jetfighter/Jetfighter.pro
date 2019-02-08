@@ -37,7 +37,9 @@ SOURCES += \
     powerup.cpp \
     coin.cpp \
     lifeup.cpp \
-    gametext.cpp
+    gametext.cpp \
+    enemylvl2.cpp \
+    enemylvl1.cpp
 
 
 HEADERS += \
@@ -52,7 +54,9 @@ HEADERS += \
     powerup.h \
     coin.h \
     lifeup.h \
-    gametext.h
+    gametext.h \
+    enemylvl2.h \
+    enemylvl1.h
 
 FORMS +=
 
