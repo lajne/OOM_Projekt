@@ -54,6 +54,9 @@ Game::Game(QWidget *parent){
     //Create enemy
     QObject::connect(gameTimer, SIGNAL(timeout()), this, SLOT(gameUpdate()));
     gameTimer->start(50);
+
+    QObject::connect(escTimer, SIGNAL(timeout()), this, SLOT(checkForEsc()));
+    escTimer->start(50);
     show();
 }
 
@@ -96,11 +99,6 @@ void Game::gameUpdate() {
         spawnHealth();
         spawnHealthTimer = 0;
     }
-    if(player->escKey()) {
-        gameTimer->stop();
-        hide();
-        this->~Game();
-    }
 
     shootEvent();
 
@@ -110,6 +108,7 @@ void Game::gameUpdate() {
         for(int i = 0; i < activeEnemies.size(); i++) {
             //Why do we check this here?
             if(health->getHealth() == 0) {
+                gameTimer->stop();
                 text[1]->gameOver();
                 delete  activeEnemies[i];
                 activeEnemies.erase(activeEnemies.begin()+i);
@@ -184,6 +183,13 @@ void Game::gameUpdate() {
             //What does this do?? :s
             activePowerUps.erase(activePowerUps.begin()+i);
         }
+    }
+}
+
+void Game::checkForEsc() {
+    if(player->escKey()) {
+        hide();
+        this->~Game();
     }
 }
 

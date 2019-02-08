@@ -39,6 +39,7 @@ public:
 //private:
     QGraphicsScene * scene;
     QTimer * gameTimer = new QTimer;
+    QTimer * escTimer = new QTimer;
     Player * player;
     Enemy * enemy;
     Score * score;
@@ -60,6 +61,7 @@ private:
 
 public slots:
     void gameUpdate();
+    void checkForEsc();
     void spawnCoin();
     void spawnHealth();
 };
