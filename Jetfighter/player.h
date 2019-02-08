@@ -15,20 +15,16 @@ public:
     Sound *sound = new Sound;  // TODO: Move sound to game class
     bool isEnemyCollision();
     bool isShooting();
+    bool escKey();
     void movement();
 
 private:
     bool shootPress = false;
     bool leftPress = false;
     bool rightPress = false;
+    bool escPress = false;
     QList<QGraphicsItem> returnCollidingItemsList();
     QList<QGraphicsItem *> collidingList = collidingItems();
-//public slots:
-//    void spawn();
-public slots:
-
-    //Will remove later
-    //void spawn2();
 };
 
 #endif // PLAYER_H

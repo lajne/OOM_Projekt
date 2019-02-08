@@ -37,7 +37,8 @@ SOURCES += \
     powerup.cpp \
     coin.cpp \
     lifeup.cpp \
-    gametext.cpp
+    gametext.cpp \
+    gamemainwindow.cpp
 
 
 HEADERS += \
@@ -52,9 +53,11 @@ HEADERS += \
     powerup.h \
     coin.h \
     lifeup.h \
-    gametext.h
+    gametext.h \
+    gamemainwindow.h
 
-FORMS +=
+FORMS += \
+    gamemainwindow.ui
 
 RESOURCES += \
     res.qrc

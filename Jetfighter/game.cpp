@@ -51,12 +51,21 @@ Game::Game(QWidget *parent){
     health->setPos(health->x(), health->y() + 25);
     scene->addItem(health);
 
-//    QTimer * gameTimer = new QTimer();
     //Create enemy
     QObject::connect(gameTimer, SIGNAL(timeout()), this, SLOT(gameUpdate()));
     gameTimer->start(50);
-
     show();
+}
+
+Game::~Game() {
+    text.clear();
+    activeBullets.clear();
+    activeEnemies.clear();
+    activePowerUps.clear();
+    delete player;
+    delete score;
+    delete health;
+    delete scene;
 }
 
 void Game::gameUpdate() {
@@ -66,7 +75,6 @@ void Game::gameUpdate() {
         spawnEnemyTimer = 0;
     }
     if(spawnCoinTimer == 60) {
-        qDebug() << "spawncoin";
         spawnCoin();
         spawnCoinTimer = 0;
     }
@@ -74,17 +82,19 @@ void Game::gameUpdate() {
         if(levelCounter > 1) {
             sound->soundLevelUp();
         }
-        qDebug() << "level:" << levelCounter;
         text[0]->level(levelCounter);
         levelTimer = 0;
         levelCounter++;
-        qDebug() << "speed:" << enemySpeed;
         enemySpeed += 1;
     }
     if(spawnHealthTimer == 200) {
-        qDebug() << "spawnhealth";
         spawnHealth();
         spawnHealthTimer = 0;
+    }
+    if(player->escKey()) {
+        gameTimer->stop();
+        hide();
+        this->~Game();
     }
 
     shootEvent();
@@ -95,7 +105,6 @@ void Game::gameUpdate() {
         for(int i = 0; i < activeEnemies.size(); i++) {
             if(health->getHealth() == 0) {
                 text[1]->gameOver();
-                gameTimer->stop();
                 delete  activeEnemies[i];
                 activeEnemies.erase(activeEnemies.begin()+i);
             }
@@ -246,9 +255,3 @@ bool Game::isHealthPickedUp(PowerUp *pu) {
     }
     return false;
 }
-
-//Pause all timers
-//bool Game::gameOver()
-//{
-//    return true;
-//}
