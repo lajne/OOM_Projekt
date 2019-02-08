@@ -21,6 +21,8 @@ class Game: public QGraphicsView {
     Q_OBJECT
 public:
     Game(QWidget * parent = 0);
+    ~Game();
+    //void keyPressEvent (QKeyEvent * event);
     void spawnEnemy();
     void spawnBullet();
     bool isEnemyCollidingWithBullet(Enemy * enemy);
@@ -39,10 +41,9 @@ public:
     Health * health;
     PowerUp *powerUp;
     Bullet * bullet;
-    //bool isPlayerCollidingWithPowerUp(Player *player);
+    GameText * gameText;
     bool isCoinPickedUp(PowerUp *pu);
     bool isHealthPickedUp(PowerUp *pu);
-    GameText * gameText;
   
 private:
     std::vector<Enemy*> activeEnemies;
@@ -55,7 +56,6 @@ private:
 
 public slots:
     void gameUpdate();
-//    void spawnEnemy();
     void spawnCoin();
     void spawnHealth();
 };
