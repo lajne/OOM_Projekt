@@ -26,7 +26,6 @@ public:
     ~Game();   
     void spawnEnemyLvl1();
     void spawnEnemyLvl2();
-    //void keyPressEvent (QKeyEvent * event);
     void spawnEnemy();
     void spawnBullet();
     bool isEnemyCollidingWithBullet(Enemy * enemy);
@@ -35,8 +34,6 @@ public:
     void shootEvent();
     bool gameOver();
     void setGameOverText();
-
-//private:
     QGraphicsScene * scene;
     QTimer * gameTimer = new QTimer;
     QTimer * escTimer = new QTimer;

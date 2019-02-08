@@ -1,15 +1,11 @@
 <RCC>
     <qresource prefix="/sounds">
-        <file>prop-plane.wav</file>
-        <file>bullet.wav</file>
         <file>gunfire.wav</file>
-        <file>bulletping.mp3</file>
-        <file>explosion.mp3</file>
         <file>explosion2.wav</file>
         <file>coin.wav</file>
-        <file>lvlup.wav</file>
         <file>healthup.wav</file>
         <file>lvlup2.wav</file>
+        <file>bullethit.wav</file>
     </qresource>
     <qresource prefix="/images">
         <file>bullet4.png</file>

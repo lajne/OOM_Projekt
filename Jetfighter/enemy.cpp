@@ -7,7 +7,7 @@
 #include <QList>
 #include <QDebug>
 #include <QString>
-#include <stdlib.h> //rand() -> really large int
+#include <stdlib.h>
 
 extern Game * game;
 
@@ -17,9 +17,6 @@ Enemy::Enemy(int moveSpeed, int health, QGraphicsItem *parent): QObject (), QGra
     setPos(random_number, 0);
     this->setSpeed(moveSpeed);
     this->setHealth(health);
-
-    //Drew rect
-    //setPixmap(QPixmap(":/images/enemy_plane.png"));
 
     connect(timer, SIGNAL(timeout()), this, SLOT(move()));
 

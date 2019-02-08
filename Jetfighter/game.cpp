@@ -72,13 +72,11 @@ Game::~Game() {
 }
 
 void Game::gameUpdate() {
-    //20
     if(spawnEnemyLvl1Timer == 40) {
         spawnEnemyLvl1();
         spawnEnemyLvl1Timer = 0;
     }
     if(spawnEnemyLvl2Timer == 600) {
-        qDebug() << "ENemy LVL2";
         spawnEnemyLvl2();
         spawnEnemyLvl2Timer = 0;
     }
@@ -106,7 +104,6 @@ void Game::gameUpdate() {
 
     if(!activeEnemies.empty()) {
         for(int i = 0; i < activeEnemies.size(); i++) {
-            //Why do we check this here?
             if(health->getHealth() == 0) {
                 gameTimer->stop();
                 text[1]->gameOver();
@@ -116,6 +113,7 @@ void Game::gameUpdate() {
             if(isEnemyCollidingWithBullet(activeEnemies[i])) {
                 for(int i = 0; i < activeBullets.size(); i++) {
                     if(isBulletCollidingWithEnemy(activeBullets[i])) {
+                        sound->soundBulletHit();
                         scene->removeItem(activeBullets[i]);
                         delete activeBullets[i];
                         activeBullets.erase(activeBullets.begin()+i);
@@ -180,7 +178,6 @@ void Game::gameUpdate() {
         if(activePowerUps[i]->isOutOfScreen(600)) {
             scene->removeItem(activePowerUps[i]);
             delete activePowerUps[i];
-            //What does this do?? :s
             activePowerUps.erase(activePowerUps.begin()+i);
         }
     }
@@ -194,9 +191,6 @@ void Game::checkForEsc() {
 }
 
 void Game::spawnEnemyLvl1(){
-    //activeEnemies.push_back(new Enemy(enemySpeed));
-    //scene->addItem(activeEnemies.back());
-    //TEMP
     activeEnemies.push_back(new EnemyLvl1(enemySpeed));
     scene->addItem(activeEnemies.back());
 }

@@ -75,14 +75,3 @@ void Player::movement() {
         }
     }
 }
-
-//void Player::spawn() {
-//    //Create enemy
-//    Enemy * enemy = new Enemy();
-//    scene()->addItem(enemy);
-//}
-//Will remove later
-//void Player::spawn2() {
-//    PowerUp *powerUp = new PowerUp();
-//    scene()->addItem(powerUp);
-//}

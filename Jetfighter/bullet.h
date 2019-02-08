@@ -11,20 +11,12 @@
 class Bullet: public QObject, public QGraphicsPixmapItem {
     Q_OBJECT
 public:
-    //Parametrar: (Arena * a, Player * p, QGraphicsItem * parent = 0)
     Bullet(QGraphicsItem * parent = 0);
     Sound *sound = new Sound;
     void stop();
 
 private:
     QTimer * timer = new QTimer();
-
-//SKA VI HA ?
-//private:
-//    Sound *sound;
-//    Arena * arena;
-//    Player *player;
-//    QTimer *timer;
 
 public slots:
     void move();
