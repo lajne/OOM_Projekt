@@ -11,14 +11,15 @@
 
 extern Game * game;
 
-Enemy::Enemy(QGraphicsItem *parent, int moveSpeed): QObject (), QGraphicsPixmapItem(parent) {
+Enemy::Enemy(int moveSpeed, int health, QGraphicsItem *parent): QObject (), QGraphicsPixmapItem(parent) {
     //Set random x pos
     int random_number = rand() % 700;
     setPos(random_number, 0);
-    _moveSpeed = moveSpeed;
+    this->setSpeed(moveSpeed);
+    this->setHealth(health);
 
     //Drew rect
-    setPixmap(QPixmap(":/images/enemy_plane.png"));
+    //setPixmap(QPixmap(":/images/enemy_plane.png"));
 
     connect(timer, SIGNAL(timeout()), this, SLOT(move()));
 
@@ -36,6 +37,21 @@ void Enemy::setSpeed(int speed) {
     _moveSpeed = speed;
 }
 
+void Enemy::setHealth(int health) {
+    _health = health;
+}
+
 void Enemy::move() {
     setPos(x(), y() + this->_moveSpeed);
-};
+}
+
+void Enemy::decreaseHealth() {
+    _health--;
+}
+
+bool Enemy::isDead() {
+    if(_health == 0) {
+        return true;
+    }
+    return false;
+}

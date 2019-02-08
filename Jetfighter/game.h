@@ -7,7 +7,9 @@
 #include <QFont>
 #include <QObject>
 #include "player.h"
-#include "enemy.h"
+//#include "enemy.h"
+#include "enemylvl1.h"
+#include "enemylvl2.h"
 #include "bullet.h"
 #include "score.h"
 #include "health.h"
@@ -21,7 +23,9 @@ class Game: public QGraphicsView {
     Q_OBJECT
 public:
     Game(QWidget * parent = 0);
-    ~Game();
+    ~Game();   
+    void spawnEnemyLvl1();
+    void spawnEnemyLvl2();
     //void keyPressEvent (QKeyEvent * event);
     void spawnEnemy();
     void spawnBullet();
@@ -51,7 +55,7 @@ private:
     std::vector<PowerUp*> activePowerUps;
     std::vector<GameText*> text;     //text[0] = level, text[1] = gameover
     Sound *sound = new Sound;
-    int spawnEnemyTimer, spawnCoinTimer, shootCooldown, spawnHealthTimer, levelTimer, levelCounter;
+    int spawnEnemyLvl1Timer, spawnEnemyLvl2Timer, spawnCoinTimer, shootCooldown, spawnHealthTimer, levelTimer, levelCounter;
     int enemySpeed = 5;
 
 public slots:
