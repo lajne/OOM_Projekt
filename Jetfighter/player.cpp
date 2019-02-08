@@ -22,6 +22,8 @@ void Player::keyPressEvent(QKeyEvent *event) {
         rightPress = true;
     } else if(event->key() == Qt::Key_Space) {
         shootPress = true;
+    } else if (event->key() == Qt::Key_Escape) {
+        escPress = true;
     }
 }
 
@@ -32,6 +34,8 @@ void Player::keyReleaseEvent(QKeyEvent *event) {
         rightPress = false;
     } else if(event->key() == Qt::Key_Space) {
         shootPress = false;
+    } else if (event->key() == Qt::Key_Escape) {
+        escPress = false;
     }
 }
 
@@ -54,6 +58,10 @@ bool Player::isShooting() {
     } else {
         return false;
     }
+}
+
+bool Player::escKey() {
+    return escPress;
 }
 
 void Player::movement() {

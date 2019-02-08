@@ -39,7 +39,8 @@ SOURCES += \
     lifeup.cpp \
     gametext.cpp \
     enemylvl2.cpp \
-    enemylvl1.cpp
+    enemylvl1.cpp \
+    gamemainwindow.cpp
 
 
 HEADERS += \
@@ -56,9 +57,11 @@ HEADERS += \
     lifeup.h \
     gametext.h \
     enemylvl2.h \
-    enemylvl1.h
+    enemylvl1.h \
+    gamemainwindow.h
 
-FORMS +=
+FORMS += \
+    gamemainwindow.ui
 
 RESOURCES += \
     res.qrc
