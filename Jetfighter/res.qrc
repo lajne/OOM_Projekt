@@ -1,0 +1,19 @@
+<RCC>
+    <qresource prefix="/sounds">
+        <file>gunfire.wav</file>
+        <file>explosion2.wav</file>
+        <file>coin.wav</file>
+        <file>healthup.wav</file>
+        <file>lvlup2.wav</file>
+        <file>bullethit.wav</file>
+    </qresource>
+    <qresource prefix="/images">
+        <file>bullet4.png</file>
+        <file>player_plane.png</file>
+        <file>enemy_plane.png</file>
+        <file>ground.png</file>
+        <file>coin.png</file>
+        <file>heart.png</file>
+        <file>enemy2_plane.png</file>
+    </qresource>
+</RCC>
